@@ -199,7 +199,7 @@
                                   <label>Data Entry:</label>
                                   <div class="form-group">
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="employee" /> Employee</label><br/>
-                                    <label><input type="checkbox" name="priviledges[]" class="js-switch" value="employee_status" /> Employee Status</label><br/>
+                                    <label><input type="checkbox" name="priviledges[]" class="js-switch" value="emp_status" /> Employee Status</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="rank" /> Rank</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="salary_grade" /> Salary Grade</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
