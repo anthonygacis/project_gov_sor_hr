@@ -117,12 +117,16 @@
                                   <?php
                                     if(count($output) > 0){
                                       echo $output[0][1];
+                                    }else{
+                                      echo "Not Available";
                                     }
                                   ?>,
                                   Appointment Date:
                                   <?php
                                     if(count($output) > 0){
                                       echo $output[0][4];
+                                    }else{
+                                      echo "Not Available";
                                     }
                                   ?>
                                 </a>

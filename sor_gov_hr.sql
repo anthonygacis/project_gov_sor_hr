@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2019 at 03:27 AM
+-- Generation Time: Aug 19, 2019 at 12:57 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -28,24 +28,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `appointment` (
   `appointmenttno` int(11) NOT NULL,
-  `employeeid` int(11) DEFAULT NULL,
+  `employeeid` int(11) NOT NULL,
   `rankid` int(11) DEFAULT NULL,
   `empstatusid` int(11) DEFAULT NULL,
   `salarygradeid` int(11) DEFAULT NULL,
   `emptype` varchar(1) DEFAULT NULL,
   `apptdate` date DEFAULT NULL,
   `campusid` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `appointment`
---
-
-INSERT INTO `appointment` (`appointmenttno`, `employeeid`, `rankid`, `empstatusid`, `salarygradeid`, `emptype`, `apptdate`, `campusid`) VALUES
-(9, 5, 1, 5, 2, 'T', '2002-02-22', NULL),
-(8, 6, 1, 3, 2, 'T', '1111-11-11', NULL),
-(7, 2, 1, 5, 2, 'T', '2018-02-01', 1),
-(10, 6, 2, 5, 2, NULL, '2017-12-20', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -82,18 +72,19 @@ CREATE TABLE `educbackground` (
   `degree` varchar(75) DEFAULT NULL,
   `periodfrom` int(11) DEFAULT NULL,
   `periodto` int(11) DEFAULT NULL,
-  `unitsearned` double DEFAULT NULL,
+  `unitsearned` varchar(10) DEFAULT NULL,
   `yrgraduate` int(11) DEFAULT NULL,
   `honors` varchar(30) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `educbackground`
 --
 
 INSERT INTO `educbackground` (`employeeid`, `itemno`, `educlevel`, `schoolname`, `degree`, `periodfrom`, `periodto`, `unitsearned`, `yrgraduate`, `honors`) VALUES
-(2, 2, 'secondary', 'MATNOG NATIONAL HIGH SCHOOL', 'HIGH SCHOOL', 2008, 2012, 0, 2, ''),
-(2, 1, 'elementary', 'POROPANDAN', 'ELEMENTARY', 2006, 2008, 0, 2008, 'SALUTATORIAN');
+(6, 3, 'elementary', '123123', '123123', 2010, 2015, '1', 2, ''),
+(6, 5, 'secondary', 'QWEQWEQWE', 'QWEQWEQWE', 2012, 2016, '2', 2, ''),
+(6, 6, 'college', 'ASDASD', 'ASDASD', 2016, 2019, '3', 2, '');
 
 -- --------------------------------------------------------
 
@@ -106,15 +97,7 @@ CREATE TABLE `empchildren` (
   `itemno` int(11) NOT NULL,
   `childname` varchar(30) DEFAULT NULL,
   `birthdate` date DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `empchildren`
---
-
-INSERT INTO `empchildren` (`employeeid`, `itemno`, `childname`, `birthdate`) VALUES
-(2, 10, 'CHILD 1', '2222-02-22'),
-(2, 9, 'CHILD 2', '1111-11-11');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -167,19 +150,15 @@ CREATE TABLE `employee` (
   `fathermname` varchar(30) DEFAULT NULL,
   `motherlname` varchar(30) DEFAULT NULL,
   `motherfname` varchar(30) DEFAULT NULL,
-  `mothermname` varchar(30) DEFAULT NULL,
-  `password` varchar(50) NOT NULL,
-  `user_type` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `mothermname` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employeeid`, `lname`, `fname`, `midname`, `midinit`, `birthdate`, `birthplace`, `gender`, `civilstatus`, `height`, `weight`, `bloodtype`, `gsisno`, `pagibigno`, `philhealthno`, `sssno`, `tinno`, `agencyemployeeno`, `citizenship`, `residentialaddr1`, `residentialaddr2`, `residentialaddr3`, `residentialaddr4`, `reszipcode`, `permanentaddr1`, `permanentaddr2`, `permanentaddr3`, `permanentaddr4`, `permzipcode`, `telno`, `mobileno`, `emailaddr`, `spouselname`, `spousefname`, `spousemname`, `sp_occupation`, `sp_employer`, `sp_empraddr`, `sp_emprtelno`, `fatherlname`, `fatherfname`, `fathermname`, `motherlname`, `motherfname`, `mothermname`, `password`, `user_type`) VALUES
-(1, 'ADMIN', 'ADMIN', 'ADMIN', 'A.', '1111-11-11', 'ADMIN', 'M', 'single', '', '62', 'O', '', '', '', '', '', '369', 'FILIPINO', 'QUEZON CITY', '', '', '', '0000', 'LAGUNA', '', '', '', '000', '', '', 'admin@yahoo.com', '', '', '', '', '', '', '', 'ASDASD', 'ASDASD', 'ASDASD', 'ASD', 'ASD', 'ASD', 'admin', 'admin'),
-(2, 'GACIS', 'ANTHONY', 'SUMEGUIN', 'S.', '1111-11-11', 'QUEZON CITY', 'M', 'single', '', '62', '', '', '', '', '', '', '123', 'FILIPINO', 'ZONE 5, BULAN, SORSOGON', NULL, NULL, NULL, '4706', 'POROPANDAN', NULL, NULL, NULL, '4708', '', '', 'anthony.gacis@yahoo.com', '', '', '', '', '', '', '', 'ASDASD', 'ASDASD', 'ASDASD', 'ASD', 'ASD', 'ASD', 'sscgaming16', 'user'),
-(6, 'ESTUR', 'MA. SYLISA', 'JAYLO', 'J.', '1967-07-14', 'SORSOGON', 'F', 'married', '', '', '', '', '', '', '', '', '670788153', 'FILIPINO', 'SAN JUAN', NULL, NULL, NULL, '4700', 'SAN JUAN', NULL, NULL, NULL, '4700', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018_dd5b5e6', 'user');
+INSERT INTO `employee` (`employeeid`, `lname`, `fname`, `midname`, `midinit`, `birthdate`, `birthplace`, `gender`, `civilstatus`, `height`, `weight`, `bloodtype`, `gsisno`, `pagibigno`, `philhealthno`, `sssno`, `tinno`, `agencyemployeeno`, `citizenship`, `residentialaddr1`, `residentialaddr2`, `residentialaddr3`, `residentialaddr4`, `reszipcode`, `permanentaddr1`, `permanentaddr2`, `permanentaddr3`, `permanentaddr4`, `permzipcode`, `telno`, `mobileno`, `emailaddr`, `spouselname`, `spousefname`, `spousemname`, `sp_occupation`, `sp_employer`, `sp_empraddr`, `sp_emprtelno`, `fatherlname`, `fatherfname`, `fathermname`, `motherlname`, `motherfname`, `mothermname`) VALUES
+(6, 'ESTUR', 'MA. SYLISA', 'JAYLO', 'J.', '1967-07-14', 'SORSOGON', 'F', 'married', '', '', '', '', '', '', '', '', '670788153', 'FILIPINO', 'SAN JUAN', NULL, NULL, NULL, '4700', 'SAN JUAN', NULL, NULL, NULL, '4700', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -190,15 +169,14 @@ INSERT INTO `employee` (`employeeid`, `lname`, `fname`, `midname`, `midinit`, `b
 CREATE TABLE `empstatus` (
   `empstatusid` int(11) NOT NULL,
   `statustitle` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `empstatus`
 --
 
 INSERT INTO `empstatus` (`empstatusid`, `statustitle`) VALUES
-(3, 'CASUAL'),
-(5, 'CONTRACT OF SERVICE');
+(6, 'PERMANENT');
 
 -- --------------------------------------------------------
 
@@ -215,15 +193,7 @@ CREATE TABLE `license` (
   `place` varchar(30) DEFAULT NULL,
   `licenseno` varchar(30) DEFAULT NULL,
   `validdate` date DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `license`
---
-
-INSERT INTO `license` (`employeeid`, `itemno`, `licensename`, `rating`, `examdate`, `place`, `licenseno`, `validdate`) VALUES
-(2, 3, 'PRC 1', 84, '2000-12-12', 'NAGA', '123456', '2018-05-12'),
-(2, 2, 'PRC 1', 83, '2000-12-12', 'NAGA', '456789', '2018-02-02');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -234,15 +204,14 @@ INSERT INTO `license` (`employeeid`, `itemno`, `licensename`, `rating`, `examdat
 CREATE TABLE `rank` (
   `rankid` int(11) NOT NULL,
   `ranktitle` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rank`
 --
 
 INSERT INTO `rank` (`rankid`, `ranktitle`) VALUES
-(1, 'INSTRUCTOR I'),
-(2, 'INSTRUCTOR II');
+(4, 'RANK 1');
 
 -- --------------------------------------------------------
 
@@ -254,7 +223,7 @@ CREATE TABLE `salarygrade` (
   `salaryid` int(11) NOT NULL,
   `salarytitle` varchar(6) NOT NULL,
   `amount` double NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `salarygrade`
@@ -262,6 +231,34 @@ CREATE TABLE `salarygrade` (
 
 INSERT INTO `salarygrade` (`salaryid`, `salarytitle`, `amount`) VALUES
 (2, 'SG-1-1', 10510);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_accounts`
+--
+
+CREATE TABLE `user_accounts` (
+  `uid` int(11) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `user_type` varchar(100) DEFAULT NULL,
+  `gmt_created` datetime DEFAULT NULL,
+  `priviledges` text,
+  `gmt_last_access` datetime DEFAULT NULL,
+  `fname` varchar(100) DEFAULT NULL,
+  `mname` varchar(100) DEFAULT NULL,
+  `lname` varchar(100) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_accounts`
+--
+
+INSERT INTO `user_accounts` (`uid`, `username`, `password`, `user_type`, `gmt_created`, `priviledges`, `gmt_last_access`, `fname`, `mname`, `lname`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', '2019-08-18 09:02:00', 'employee,emp_status,rank,salary_grade,set_appointment', '2019-08-19 08:25:45', 'ADMIN', 'ADMIN', 'ADMIN'),
+(3, 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 'user', '2019-08-18 22:18:58', 'employee,emp_status,salary_grade,set_appointment', NULL, 'USER1', 'USER1', 'USER1'),
+(4, 'user2', '7e58d63b60197ceb55a1c487989a3720', 'user', '2019-08-18 22:20:04', 'employee,rank,salary_grade,set_appointment', NULL, 'USER2', 'USER2', 'USER2');
 
 --
 -- Indexes for dumped tables
@@ -271,7 +268,8 @@ INSERT INTO `salarygrade` (`salaryid`, `salarytitle`, `amount`) VALUES
 -- Indexes for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD PRIMARY KEY (`appointmenttno`);
+  ADD PRIMARY KEY (`appointmenttno`,`employeeid`) USING BTREE,
+  ADD KEY `employeeid` (`employeeid`);
 
 --
 -- Indexes for table `campus`
@@ -283,13 +281,15 @@ ALTER TABLE `campus`
 -- Indexes for table `educbackground`
 --
 ALTER TABLE `educbackground`
-  ADD PRIMARY KEY (`employeeid`,`itemno`);
+  ADD PRIMARY KEY (`itemno`,`employeeid`) USING BTREE,
+  ADD KEY `employeeid` (`employeeid`);
 
 --
 -- Indexes for table `empchildren`
 --
 ALTER TABLE `empchildren`
-  ADD PRIMARY KEY (`itemno`,`employeeid`);
+  ADD PRIMARY KEY (`itemno`,`employeeid`) USING BTREE,
+  ADD KEY `employeeid` (`employeeid`);
 
 --
 -- Indexes for table `employee`
@@ -307,7 +307,8 @@ ALTER TABLE `empstatus`
 -- Indexes for table `license`
 --
 ALTER TABLE `license`
-  ADD PRIMARY KEY (`itemno`,`employeeid`);
+  ADD PRIMARY KEY (`itemno`,`employeeid`),
+  ADD KEY `employeeid` (`employeeid`);
 
 --
 -- Indexes for table `rank`
@@ -322,6 +323,12 @@ ALTER TABLE `salarygrade`
   ADD PRIMARY KEY (`salaryid`);
 
 --
+-- Indexes for table `user_accounts`
+--
+ALTER TABLE `user_accounts`
+  ADD PRIMARY KEY (`uid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -329,7 +336,7 @@ ALTER TABLE `salarygrade`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmenttno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `appointmenttno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `campus`
 --
@@ -339,7 +346,7 @@ ALTER TABLE `campus`
 -- AUTO_INCREMENT for table `educbackground`
 --
 ALTER TABLE `educbackground`
-  MODIFY `itemno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `itemno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `empchildren`
 --
@@ -354,7 +361,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `empstatus`
 --
 ALTER TABLE `empstatus`
-  MODIFY `empstatusid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `empstatusid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `license`
 --
@@ -364,12 +371,45 @@ ALTER TABLE `license`
 -- AUTO_INCREMENT for table `rank`
 --
 ALTER TABLE `rank`
-  MODIFY `rankid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rankid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `salarygrade`
 --
 ALTER TABLE `salarygrade`
   MODIFY `salaryid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `user_accounts`
+--
+ALTER TABLE `user_accounts`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `appointment`
+--
+ALTER TABLE `appointment`
+  ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `educbackground`
+--
+ALTER TABLE `educbackground`
+  ADD CONSTRAINT `educbackground_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `empchildren`
+--
+ALTER TABLE `empchildren`
+  ADD CONSTRAINT `empchildren_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `license`
+--
+ALTER TABLE `license`
+  ADD CONSTRAINT `license_ibfk_1` FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
