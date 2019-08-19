@@ -1,0 +1,327 @@
+<?php
+  include "connection/connection.php";
+  session_start();
+
+  if(!isset($_SESSION["username"])){
+    header("Location: login.php");
+  }
+
+  if(isset($_POST["update_employee"])){ // For update
+    $employeeid = $_POST["employeeid"];
+    $lname = strtoupper($_POST["lname"]);
+    $fname = strtoupper($_POST["fname"]);
+    $midname = strtoupper($_POST["midname"]);
+    $agencyemployeeno = $_POST["agencyemployeeno"];
+
+    $update = DB::run("UPDATE employee SET lname = ?, fname = ?, midname = ?, agencyemployeeno = ? WHERE employeeid = ?", [$lname, $fname, $midname, $agencyemployeeno, $employeeid]);
+
+    if($update->rowCount() > 0){
+      $modify_success["update"] = true;
+    }else{
+      $modify_success["update"] = false;
+    }
+  }
+  if(isset($_POST["remove_employee"])){ // For delete
+    $employeeid = $_POST["employeeid"];
+
+    $update = DB::run("DELETE FROM employee WHERE employeeid = ?", [$employeeid]);
+
+    if($update->rowCount() > 0){
+      $modify_success["delete"] = true;
+    }else{
+      $modify_success["delete"] = false;
+    }
+  }
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Employee Management System | Welcome "<?php echo $_SESSION["username"];?>"</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <?php
+            require_once("modules/navigation.php");
+          ?>
+        </div>
+
+        <?php
+          require_once("modules/header.php");
+        ?>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Data Entry</h3>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="alert alert-info alert-dismissible fade in" role="alert">
+              <strong>Note!</strong> Kindly click the row for the update
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>List of Employees</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <?php
+                      if(isset($_POST["submit"])){
+                        $lname = strtoupper($_POST["lname"]);
+                        $fname = strtoupper($_POST["fname"]);
+                        if(isset($_POST["midname"])){
+                          $midname = strtoupper($_POST["midname"]);
+                          $midinit = substr($midname, 0, 1) . ".";
+                        }else{
+                          $midname = "";
+                          $midinit = "";
+                        }
+                        $agencyemployeeno = $_POST["agencyemployeeno"];
+
+                        $in = DB::run("INSERT INTO employee(lname, fname, midname, midinit, agencyemployeeno) VALUES(?,?,?,?,?)", [$lname, $fname, $midname, $midinit, $agencyemployeeno]);
+                        if($in->rowCount() > 0){
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                      </button>
+                      <strong>Success!</strong> Data has been added
+                    </div>
+                    <?php
+                        }else{
+                    ?>
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                      </button>
+                      <strong>Failed!</strong> Something's wrong
+                    </div>
+                    <?php
+                        }
+                      }
+                    ?>
+                    <?php
+                      if(isset($modify_success)){ // TO DO: modify success condition here
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                      </button>
+                      <strong>Success!</strong> Data has been <?php echo (isset($modify_success["update"]) ? "updated" : "deleted"); ?>
+                    </div>
+                    <?php
+                      }
+                    ?>
+                     <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Agency Employee No</th>
+                            <th>Gender</th>
+                            <th>Birthdate</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                            $retrieve = DB::run("SELECT * FROM employee");
+                            while ($row = $retrieve->fetch()) {
+                          ?>
+                          <tr onclick="<?php echo "showInfo($row[employeeid], '$row[lname]', '$row[fname]', '$row[midname]', '$row[agencyemployeeno]');"?>" style="cursor: pointer;">
+                            <td><?php echo $row["lname"]; ?></td>
+                            <td><?php echo $row["fname"]; ?></td>
+                            <td><?php echo $row["midname"]; ?></td>
+                            <td><?php echo $row["agencyemployeeno"]; ?></td>
+                            <td><?php echo $row["gender"]; ?></td>
+                            <td><?php echo $row["birthdate"]; ?></td>
+                            <td>
+                              <a href="personal_info.php?employeeid=<?php echo $row["employeeid"];?>" class="btn btn-success btn-xs"><span class="fa fa-edit"></span> Edit Information</a>
+                              <a target="_blank" href="modules/generate_pds.php?employeeid=<?php echo $row["employeeid"];?>" class="btn btn-info btn-xs">PDS (Excel)</a>
+                            </td>
+                          </tr>
+                          <?php
+                            }
+                          ?>
+                        </tbody>
+                      </table>
+                      <div>
+                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="fa fa-plus"></span> Add Employee</button>
+
+                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+                              <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <label>Last Name: </label>
+                                  <input type="text" class="form-control" name="lname" placeholder="Enter your text ..." required>
+                                  <br/>
+                                  <label>First Name: </label>
+                                  <input type="text" class="form-control" name="fname" placeholder="Enter your text ..." required>
+                                  <br/>
+                                  <label>Middle Name: </label>
+                                  <input type="text" class="form-control" name="midname" placeholder="Enter your text ..." required>
+                                  <br/>
+                                  <label>Agency Employee No.: </label>
+                                  <input type="text" class="form-control" name="agencyemployeeno" placeholder="Enter your text ...">
+                                  <br/>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="row_update" style="display: none;">
+              <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Employee Update</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                      <input type="text" name="employeeid" id="employeeid" style="display: none;">
+                      <label>Last Name: </label>
+                      <input class="form-control" type="text" name="lname" id="lname" required>
+                      <br/>
+                      <label>First Name: </label>
+                      <input class="form-control" type="text" name="fname" id="fname" required>
+                      <br/>
+                      <label>Middle Name: </label>
+                      <input class="form-control" type="text" name="midname" id="midname" required>
+                      <br/>
+                      <label>Agency Employee No.: </label>
+                      <input class="form-control" type="text" name="agencyemployeeno" id="agencyemployeeno">
+                      <br/>
+                      <input type="submit" name="update_employee" value="Save Changes" class="btn btn-success">
+                      <input type="submit" name="remove_employee" value="Remove" class="btn btn-danger">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <?php
+          require_once("modules/footer.php");
+        ?>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <!-- PNotify -->
+    <script src="../vendors/pnotify/dist/pnotify.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.js"></script>
+
+
+    <script>
+      function showInfo(employeeid, lname, fname, midname, agencyemployeeno) {
+        $('#row_update').show();
+
+        $('#employeeid').val(employeeid);
+        $('#lname').val(lname);
+        $('#fname').val(fname);
+        $('#midname').val(midname);
+        $('#agencyemployeeno').val(agencyemployeeno);
+      }
+    </script>
+  </body>
+  <script>
+  if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
+  </script>
+</html>
