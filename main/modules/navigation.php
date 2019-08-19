@@ -73,12 +73,18 @@
     <?php
       }
     ?>
+    <?php
+      if($_SESSION["user_type"] == "admin"){
+    ?>
     <div class="menu_section">
       <h3>Account Management</h3>
       <ul class="nav side-menu">
         <li><a href="manage_account.php"><i class="fa fa-user"></i> Manage Account</a></li>
       </ul>
     </div>
+    <?php
+      }
+    ?>
     <div class="menu_section">
       <h3>System</h3>
       <ul class="nav side-menu">

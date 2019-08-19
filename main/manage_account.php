@@ -162,7 +162,7 @@
                             <td><?php echo $row["username"]; ?></td>
                             <td><?php echo $row["priviledges"]; ?></td>
                             <td><?php echo $row["lname"] . ", " . $row["fname"]; ?></td>
-                            <td><?php echo $row["gmt_last_access"]; ?></td>
+                            <td><?php echo date("Y-m-d h:i:s a", strtotime($row["gmt_last_access"])); ?></td>
                           </tr>
                           <?php
                             }
