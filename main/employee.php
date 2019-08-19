@@ -32,6 +32,27 @@
       $modify_success["delete"] = false;
     }
   }
+
+  if(isset($_POST["submit"])){
+    $lname = strtoupper($_POST["lname"]);
+    $fname = strtoupper($_POST["fname"]);
+    if(isset($_POST["midname"])){
+      $midname = strtoupper($_POST["midname"]);
+      $midinit = substr($midname, 0, 1) . ".";
+    }else{
+      $midname = "";
+      $midinit = "";
+    }
+    $agencyemployeeno = $_POST["agencyemployeeno"];
+
+    $in = DB::run("INSERT INTO employee(lname, fname, midname, midinit, agencyemployeeno) VALUES(?,?,?,?,?)", [$lname, $fname, $midname, $midinit, $agencyemployeeno]);
+    $upMes = false;
+    if($in->rowCount() > 0){
+      $lastId = DB::getLastInsertedID();
+      // proceed to personal info
+      header("Location: personal_info.php?employeeid=" . $lastId);
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,47 +120,33 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>List of Employees</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <?php
-                      if(isset($_POST["submit"])){
-                        $lname = strtoupper($_POST["lname"]);
-                        $fname = strtoupper($_POST["fname"]);
-                        if(isset($_POST["midname"])){
-                          $midname = strtoupper($_POST["midname"]);
-                          $midinit = substr($midname, 0, 1) . ".";
-                        }else{
-                          $midname = "";
-                          $midinit = "";
-                        }
-                        $agencyemployeeno = $_POST["agencyemployeeno"];
 
-                        $in = DB::run("INSERT INTO employee(lname, fname, midname, midinit, agencyemployeeno) VALUES(?,?,?,?,?)", [$lname, $fname, $midname, $midinit, $agencyemployeeno]);
-                        if($in->rowCount() > 0){
-                    ?>
-                    <div class="alert alert-success alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                      </button>
-                      <strong>Success!</strong> Data has been added
-                    </div>
+                    <!-- <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="col-sm-3">Button addons</label>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <select class="form-control" name="">
+                              <option value="">-- Select an Option --</option>
+                              <option value="">100</option>
+                              <option value="">200</option>
+                              <option value="">300</option>
+                            </select>
+                            <div class="input-group-btn">
+                              <button type="button" class="btn btn-primary">Load</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <br/>
                     <?php
-                        }else{
+                      if(isset($upMes)){
+                        if($upMes == false){
                     ?>
                     <div class="alert alert-danger alert-dismissible fade in" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
