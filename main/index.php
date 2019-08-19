@@ -118,7 +118,7 @@
                                     if(count($output) > 0){
                                       echo $output[0][1];
                                     }else{
-                                      echo "Not Available";
+                                      echo "<span style=\"color:red;\">Not Available</span>";
                                     }
                                   ?>,
                                   Appointment Date:
@@ -126,7 +126,7 @@
                                     if(count($output) > 0){
                                       echo $output[0][4];
                                     }else{
-                                      echo "Not Available";
+                                      echo "<span style=\"color:red;\">Not Available</span>";
                                     }
                                   ?>
                                 </a>
