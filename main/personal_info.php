@@ -85,7 +85,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -168,31 +168,31 @@
                       <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Surname:</label>
-                          <input type="text" name="lname" placeholder="Enter text ..." class="form-control" required value="<?php echo $lname; ?>">
+                          <input type="text" name="lname" placeholder="Enter text ..." class="form-control" value="<?php echo $lname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>First Name:</label>
-                          <input type="text" name="fname" placeholder="Enter text ..." class="form-control" required value="<?php echo $fname; ?>">
+                          <input type="text" name="fname" placeholder="Enter text ..." class="form-control" value="<?php echo $fname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Middle Name:</label>
-                          <input type="text" name="mname" placeholder="Enter text ..." class="form-control" required value="<?php echo $mname; ?>">
+                          <input type="text" name="mname" placeholder="Enter text ..." class="form-control" value="<?php echo $mname; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Date of Birth:</label>
-                          <input type="date" name="birthdate" placeholder="Enter text ..." class="form-control" required value="<?php echo $birthdate; ?>">
+                          <input type="date" name="birthdate" placeholder="Enter text ..." class="form-control" value="<?php echo $birthdate; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Citizenship:</label>
-                          <input type="text" name="citizenship" placeholder="Enter text ..." class="form-control" required value="<?php echo $citizenship; ?>">
+                          <input type="text" name="citizenship" placeholder="Enter text ..." class="form-control" value="<?php echo $citizenship; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Place of Birth:</label>
-                          <input type="text" name="birthplace" placeholder="Enter text ..." class="form-control" required value="<?php echo $birthplace; ?>">
+                          <input type="text" name="birthplace" placeholder="Enter text ..." class="form-control" value="<?php echo $birthplace; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Sex:</label>
-                          <select name="gender" class="form-control" required>
+                          <select name="gender" class="form-control">
                             <option value=""> -- SELECT -- </option>
                             <option value="M" <?php echo $gender == "M" ? "selected" : ""; ?>>Male</option>
                             <option value="F" <?php echo $gender == "F" ? "selected" : ""; ?>>Female</option>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Civil Status:</label>
-                          <select name="civilstatus" class="form-control" required>
+                          <select name="civilstatus" class="form-control">
                             <option value=""> -- SELECT -- </option>
                             <option value="single" <?php echo $civilstatus == "single" ? "selected" : ""; ?>>Single</option>
                             <option value="widowed" <?php echo $civilstatus == "widowed" ? "selected" : ""; ?>>Widowed</option>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Residential Address:</label>
-                          <input type="text" name="residentialaddr1" placeholder="Enter text ..." class="form-control" required value="<?php echo $residentialaddr1; ?>">
+                          <input type="text" name="residentialaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr1; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Height (m):</label>
@@ -219,7 +219,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Residential Zip Code:</label>
-                          <input type="text" name="reszipcode" placeholder="Enter text ..." class="form-control" required value="<?php echo $reszipcode; ?>">
+                          <input type="text" name="reszipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $reszipcode; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Weight (kg):</label>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Permanent Address:</label>
-                          <input type="text" name="permanentaddr1" placeholder="Enter text ..." class="form-control" required value="<?php echo $permanentaddr1; ?>">
+                          <input type="text" name="permanentaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr1; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Blood Type:</label>
@@ -235,7 +235,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Permanent Zip Code:</label>
-                          <input type="text" name="permzipcode" placeholder="Enter text ..." class="form-control" required value="<?php echo $permzipcode; ?>">
+                          <input type="text" name="permzipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $permzipcode; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>GSIS ID No:</label>
@@ -271,13 +271,13 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Agency Employee No:</label>
-                          <input type="text" name="agencyemployeeno" placeholder="Enter text ..." class="form-control" required value="<?php echo $agencyemployeeno; ?>">
+                          <input type="text" name="agencyemployeeno" placeholder="Enter text ..." class="form-control" value="<?php echo $agencyemployeeno; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <br/>
                           <input type="submit" name="submit" value="Save Changes" class="btn btn-success">
                         </div>
-                        
+
                       </div>
                     </form>
                   </div>
@@ -322,7 +322,7 @@
     <script src="../vendors/pnotify/dist/pnotify.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.js"></script>
 
@@ -333,4 +333,3 @@
   }
   </script>
 </html>
-

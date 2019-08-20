@@ -194,7 +194,7 @@
                         <div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
-                            <select class="form-control" required name="up_educlevel[]" data-toggle="tooltip" data-placement="top" title="Educational Level">
+                            <select class="form-control" name="up_educlevel[]" data-toggle="tooltip" data-placement="top" title="Educational Level">
                               <option value=""> -- Select Education Level -- </option>
                               <option value="elementary" <?php echo $educlevel == "elementary" ? "selected" : ""; ?>>Elementary</option>
                               <option value="secondary" <?php echo $educlevel == "secondary" ? "selected" : ""; ?>>Secondary</option>
@@ -204,22 +204,22 @@
                             </select>
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_schoolname[]" placeholder="Name of School (Enter in full)" class="form-control" required value="<?php echo $schoolname; ?>" data-toggle="tooltip" data-placement="top" title="Name of School">
+                            <input type="text" name="up_schoolname[]" placeholder="Name of School (Enter in full)" class="form-control" value="<?php echo $schoolname; ?>" data-toggle="tooltip" data-placement="top" title="Name of School">
                           </div>
                           <div class="col-md-5 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_degree[]" placeholder="Basic Education/Degree/Course (Enter in full)" class="form-control" required value="<?php echo $degree; ?>" data-toggle="tooltip" data-placement="top" title="Basic Education/Degree/Course">
+                            <input type="text" name="up_degree[]" placeholder="Basic Education/Degree/Course (Enter in full)" class="form-control" value="<?php echo $degree; ?>" data-toggle="tooltip" data-placement="top" title="Basic Education/Degree/Course">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_periodfrom[]" placeholder="Period of Attendance (From)" class="form-control" required value="<?php echo $periodfrom; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (From)">
+                            <input type="number" min="0" name="up_periodfrom[]" placeholder="Period of Attendance (From)" class="form-control" value="<?php echo $periodfrom; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (From)">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_periodto[]" placeholder="Period of Attendance (To)" class="form-control" required value="<?php echo $periodto; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (To)">
+                            <input type="number" min="0" name="up_periodto[]" placeholder="Period of Attendance (To)" class="form-control" value="<?php echo $periodto; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (To)">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_unitsearned[]" placeholder="Highest Level/Units Earned" class="form-control" value="<?php echo $unitsearned; ?>" data-toggle="tooltip" data-placement="top" title="Highest Level/Units Earned">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_yrgraduate[]" placeholder="Year Graduated" class="form-control" required value="<?php echo $yrgraduate; ?>" data-toggle="tooltip" data-placement="top" title="Year Graduated">
+                            <input type="number" min="0" name="up_yrgraduate[]" placeholder="Year Graduated" class="form-control" value="<?php echo $yrgraduate; ?>" data-toggle="tooltip" data-placement="top" title="Year Graduated">
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_honors[]" placeholder="Scholarship / Academic Honors Received" class="form-control" value="<?php echo $honors; ?>" data-toggle="tooltip" data-placement="top" title="Scholarship / Academic Honors Received">
@@ -301,7 +301,7 @@
         var label = "<label>Item #" + counter + ":</label>";
         var template = "<div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<select class=\"form-control\" required name=\"educlevel[]\">" +
+                            "<select class=\"form-control\" name=\"educlevel[]\">" +
                               "<option value=\"\"> -- Select Education Level -- </option>" +
                               "<option value=\"elementary\">Elementary</option>" +
                               "<option value=\"secondary\">Secondary</option>" +
@@ -311,22 +311,22 @@
                             "</select>" +
                           "</div>" +
                           "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"schoolname[]\" placeholder=\"Name of School (Enter in full)\" class=\"form-control\" required>" +
+                            "<input type=\"text\" name=\"schoolname[]\" placeholder=\"Name of School (Enter in full)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-5 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"degree[]\" placeholder=\"Basic Education/Degree/Course (Enter in full)\" class=\"form-control\" required>" +
+                            "<input type=\"text\" name=\"degree[]\" placeholder=\"Basic Education/Degree/Course (Enter in full)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"periodfrom[]\" placeholder=\"Period of Attendance (From)\" class=\"form-control\" required>" +
+                            "<input type=\"number\" min=\"0\" name=\"periodfrom[]\" placeholder=\"Period of Attendance (From)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"periodto[]\" placeholder=\"Period of Attendance (To)\" class=\"form-control\" required>" +
+                            "<input type=\"number\" min=\"0\" name=\"periodto[]\" placeholder=\"Period of Attendance (To)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"unitsearned[]\" placeholder=\"Highest Level/Units Earned\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"yrgraduate\" placeholder=\"Year Graduated\" class=\"form-control\" required>" +
+                            "<input type=\"number\" min=\"0\" name=\"yrgraduate\" placeholder=\"Year Graduated\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"honors[]\" placeholder=\"Scholarship / Academic Honors Received\" class=\"form-control\">" +

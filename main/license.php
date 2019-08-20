@@ -85,7 +85,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -180,22 +180,22 @@
                         <div>
                           <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
                           <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_licensename[]" placeholder="License' Name" class="form-control" required value="<?php echo $licensename; ?>" data-toggle="tooltip" data-placement="top" title="License Name">
+                            <input type="text" name="up_licensename[]" placeholder="License' Name" class="form-control" value="<?php echo $licensename; ?>" data-toggle="tooltip" data-placement="top" title="License Name">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_rating[]" placeholder="Rating" class="form-control" required value="<?php echo $rating; ?>" data-toggle="tooltip" data-placement="top" title="Rating">
+                            <input type="text" name="up_rating[]" placeholder="Rating" class="form-control" value="<?php echo $rating; ?>" data-toggle="tooltip" data-placement="top" title="Rating">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="date" name="up_examdate[]" placeholder="Exam Date" class="form-control" required value="<?php echo $examdate; ?>" data-toggle="tooltip" data-placement="top" title="Exam Date">
+                            <input type="date" name="up_examdate[]" placeholder="Exam Date" class="form-control" value="<?php echo $examdate; ?>" data-toggle="tooltip" data-placement="top" title="Exam Date">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_place[]" placeholder="Place" class="form-control" required value="<?php echo $place; ?>" data-toggle="tooltip" data-placement="top" title="Place">
+                            <input type="text" name="up_place[]" placeholder="Place" class="form-control" value="<?php echo $place; ?>" data-toggle="tooltip" data-placement="top" title="Place">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_licenseno[]" placeholder="License No." class="form-control" value="<?php echo $licenseno; ?>" data-toggle="tooltip" data-placement="top" title="License No.">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="date" name="up_validdate[]" placeholder="Valid Date" class="form-control" required value="<?php echo $validdate; ?>" data-toggle="tooltip" data-placement="top" title="Valid Date">
+                            <input type="date" name="up_validdate[]" placeholder="Valid Date" class="form-control" value="<?php echo $validdate; ?>" data-toggle="tooltip" data-placement="top" title="Valid Date">
                           </div>
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <a href="license.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
@@ -206,9 +206,9 @@
                           }
                         ?>
                         <div id="item_container">
-                          
+
                         </div>
-                        
+
 
                         <!-- Commands -->
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
@@ -219,7 +219,7 @@
                           <br/>
                           <input type="submit" name="submit" value="Save Changes" class="btn btn-success">
                         </div>
-                        
+
                       </div>
                     </form>
                   </div>
@@ -264,7 +264,7 @@
     <script src="../vendors/pnotify/dist/pnotify.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.js"></script>
 
@@ -273,23 +273,23 @@
       function addItem(counter){
         var label = "<label>Item #" + counter + ":</label>";
         var template = "<div>" +
-                          "<div class=\"col-md-9 col-sm-12 col-xs-12 form-group\">" + 
-                            "<input type=\"text\" name=\"licensename[]\" placeholder=\"License' Name\" class=\"form-control\" required>" + 
+                          "<div class=\"col-md-9 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"text\" name=\"licensename[]\" placeholder=\"License' Name\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"rating[]\" placeholder=\"Rating\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"date\" name=\"examdate[]\" placeholder=\"Exam Date\" class=\"form-control\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Examination Date\" required>" +
+                            "<input type=\"date\" name=\"examdate[]\" placeholder=\"Exam Date\" class=\"form-control\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Examination Date\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"place[]\" placeholder=\"Place\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"licenseno[]\" placeholder=\"License No.\" class=\"form-control\" required>" +
+                            "<input type=\"text\" name=\"licenseno[]\" placeholder=\"License No.\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"date\" name=\"validdate[]\" placeholder=\"Valid Date\" class=\"form-control\" required data-toggle=\"tooltip\" data-placement=\"top\" title=\"Valid Date\">" +
+                            "<input type=\"date\" name=\"validdate[]\" placeholder=\"Valid Date\" class=\"form-control\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Valid Date\">" +
                           "</div>" +
                         "</div>";
         $("#item_container").append(label + template);
@@ -308,4 +308,3 @@
   }
   </script>
 </html>
-

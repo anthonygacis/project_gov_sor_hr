@@ -85,7 +85,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -114,7 +114,7 @@
 
                         // updating children
                         if (isset($_POST["update_children"])) {
-                          for ($i=0; $i < count($_POST["update_children"]); $i++) { 
+                          for ($i=0; $i < count($_POST["update_children"]); $i++) {
                             $update_children_itemno = $_POST["update_children_itemno"][$i];
                             $update_children = strtoupper($_POST["update_children"][$i]);
                             $update_children_birthdate = strtoupper($_POST["update_children_birthdate"][$i]);
@@ -217,27 +217,27 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Father's Surname:</label>
-                          <input type="text" name="fatherlname" placeholder="Enter text ..." class="form-control" required value="<?php echo $fatherlname; ?>">
+                          <input type="text" name="fatherlname" placeholder="Enter text ..." class="form-control" value="<?php echo $fatherlname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Father's First Name:</label>
-                          <input type="text" name="fatherfname" placeholder="Enter text ..." class="form-control" required value="<?php echo $fatherfname; ?>">
+                          <input type="text" name="fatherfname" placeholder="Enter text ..." class="form-control" value="<?php echo $fatherfname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Father's Middle Name:</label>
-                          <input type="text" name="fathermname" placeholder="Enter text ..." class="form-control" required value="<?php echo $fathermname; ?>">
+                          <input type="text" name="fathermname" placeholder="Enter text ..." class="form-control" value="<?php echo $fathermname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Mother's Last Name:</label>
-                          <input type="text" name="motherlname" placeholder="Enter text ..." class="form-control" required value="<?php echo $motherlname; ?>">
+                          <input type="text" name="motherlname" placeholder="Enter text ..." class="form-control" value="<?php echo $motherlname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Mother's First Name:</label>
-                          <input type="text" name="motherfname" placeholder="Enter text ..." class="form-control" required value="<?php echo $motherfname; ?>">
+                          <input type="text" name="motherfname" placeholder="Enter text ..." class="form-control" value="<?php echo $motherfname; ?>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Mother's Middle Name:</label>
-                          <input type="text" name="mothermname" placeholder="Enter text ..." class="form-control" required value="<?php echo $mothermname; ?>">
+                          <input type="text" name="mothermname" placeholder="Enter text ..." class="form-control" value="<?php echo $mothermname; ?>">
                         </div>
                           <label>Name of Children:</label>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group" id="children_container">
@@ -270,7 +270,7 @@
                           <br/>
                           <input type="submit" name="submit" value="Save Changes" class="btn btn-success">
                         </div>
-                        
+
                       </div>
                     </form>
                   </div>
@@ -315,18 +315,18 @@
     <script src="../vendors/pnotify/dist/pnotify.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
     <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.js"></script>
 
 
     <script>
       function addChild(counter){
-        var child_template = "<div class=\"col-md-6 col-sm-12 col-xs-12 form-group\">" + 
+        var child_template = "<div class=\"col-md-6 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"children[]\" placeholder=\"" + counter + " Child's Name\" class=\"form-control\">" +
                           "</div>";
-        var child_birthdate_template = "<div class=\"col-md-6 col-sm-12 col-xs-12 form-group\">" + 
-                            "<input type=\"date\" name=\"children_birthdate[]\" placeholder=\"" + counter + " Child's Birthdate\" class=\"form-control\" required>" +
+        var child_birthdate_template = "<div class=\"col-md-6 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"date\" name=\"children_birthdate[]\" placeholder=\"" + counter + " Child's Birthdate\" class=\"form-control\">" +
                           "</div>";
         $("#children_container").append(child_template + child_birthdate_template);
       }
@@ -344,4 +344,3 @@
   }
   </script>
 </html>
-
