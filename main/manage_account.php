@@ -203,6 +203,7 @@
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="rank" /> Rank</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="salary_grade" /> Salary Grade</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
+                                    <label><input type="checkbox" name="priviledges[]" class="js-switch" value="manage_account" /> Manage Account</label><br/>
                                   </div>
                                   <hr/>
                                 </div>
@@ -245,6 +246,7 @@
                         <label><input type="checkbox" name="priviledges[]" id="rank" class="js-switch" value="rank" /> Rank</label><br/>
                         <label><input type="checkbox" name="priviledges[]" id="salary_grade" class="js-switch" value="salary_grade" /> Salary Grade</label><br/>
                         <label><input type="checkbox" name="priviledges[]" id="set_appointment" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
+                        <label><input type="checkbox" name="priviledges[]" id="manage_account" class="js-switch" value="manage_account" /> Manage Account</label><br/>
                       </div>
                       <hr/>
                       <br/>
@@ -338,6 +340,12 @@
           setSwitchState("#set_appointment", true);
         }else{
           setSwitchState("#set_appointment", false);
+        }
+
+        if(priv.indexOf('manage_account') != -1){
+          setSwitchState("#manage_account", true);
+        }else{
+          setSwitchState("#manage_account", false);
         }
       }
 

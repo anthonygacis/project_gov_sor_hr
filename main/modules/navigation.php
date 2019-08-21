@@ -74,7 +74,7 @@
       }
     ?>
     <?php
-      if($_SESSION["user_type"] == "admin"){
+      if(strpos($priviledges, 'manage_account') !== false){
     ?>
     <div class="menu_section">
       <h3>Account Management</h3>
