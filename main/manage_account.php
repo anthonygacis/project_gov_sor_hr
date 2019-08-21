@@ -205,6 +205,10 @@
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="manage_account" /> Manage Account</label><br/>
                                   </div>
+                                  <label>Account Management:</label>
+                                  <div class="form-group">
+                                    <label><input type="checkbox" name="priviledges[]" class="js-switch" value="manage_account" /> Manage Account</label><br/>
+                                  </div>
                                   <hr/>
                                 </div>
                                 <div class="modal-footer">
@@ -246,6 +250,9 @@
                         <label><input type="checkbox" name="priviledges[]" id="rank" class="js-switch" value="rank" /> Rank</label><br/>
                         <label><input type="checkbox" name="priviledges[]" id="salary_grade" class="js-switch" value="salary_grade" /> Salary Grade</label><br/>
                         <label><input type="checkbox" name="priviledges[]" id="set_appointment" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
+                      </div>
+                      <label>Account Management:</label>
+                      <div class="form-group">
                         <label><input type="checkbox" name="priviledges[]" id="manage_account" class="js-switch" value="manage_account" /> Manage Account</label><br/>
                       </div>
                       <hr/>
