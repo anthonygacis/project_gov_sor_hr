@@ -203,7 +203,6 @@
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="rank" /> Rank</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="salary_grade" /> Salary Grade</label><br/>
                                     <label><input type="checkbox" name="priviledges[]" class="js-switch" value="set_appointment" /> Set Appointment</label><br/>
-                                    <label><input type="checkbox" name="priviledges[]" class="js-switch" value="manage_account" /> Manage Account</label><br/>
                                   </div>
                                   <label>Account Management:</label>
                                   <div class="form-group">
