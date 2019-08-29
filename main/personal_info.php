@@ -178,106 +178,113 @@
                           <label>Middle Name:</label>
                           <input type="text" name="mname" placeholder="Enter text ..." class="form-control" value="<?php echo $mname; ?>">
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Date of Birth:</label>
-                          <input type="date" name="birthdate" placeholder="Enter text ..." class="form-control" value="<?php echo $birthdate; ?>">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Date of Birth:</label>
+                            <input type="date" name="birthdate" placeholder="Enter text ..." class="form-control" value="<?php echo $birthdate; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Place of Birth:</label>
+                            <input type="text" name="birthplace" placeholder="Enter text ..." class="form-control" value="<?php echo $birthplace; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Sex:</label>
+                            <select name="gender" class="form-control">
+                              <option value=""> -- SELECT -- </option>
+                              <option value="M" <?php echo $gender == "M" ? "selected" : ""; ?>>Male</option>
+                              <option value="F" <?php echo $gender == "F" ? "selected" : ""; ?>>Female</option>
+                            </select>
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Civil Status:</label>
+                            <select name="civilstatus" class="form-control">
+                              <option value=""> -- SELECT -- </option>
+                              <option value="single" <?php echo $civilstatus == "single" ? "selected" : ""; ?>>Single</option>
+                              <option value="widowed" <?php echo $civilstatus == "widowed" ? "selected" : ""; ?>>Widowed</option>
+                              <option value="married" <?php echo $civilstatus == "married" ? "selected" : ""; ?>>Married</option>
+                              <option value="separated" <?php echo $civilstatus == "separated" ? "selected" : ""; ?>>Separated</option>
+                              <option value="others" <?php echo $civilstatus == "others" ? "selected" : ""; ?>>Other/s</option>
+                            </select>
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Height (m):</label>
+                            <input type="number" step=".01" min="0" name="height" placeholder="Enter text ..." class="form-control" value="<?php echo $height; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Weight (kg):</label>
+                            <input type="number" min="0" name="weight" placeholder="Enter text ..." class="form-control" value="<?php echo $weight; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Blood Type:</label>
+                            <input type="text" name="bloodtype" placeholder="Enter text ..." class="form-control" value="<?php echo $bloodtype; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>GSIS ID No:</label>
+                            <input type="text" name="gsisno" placeholder="Enter text ..." class="form-control" value="<?php echo $gsisno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>PAG-IBIG ID No:</label>
+                            <input type="text" name="pagibigno" placeholder="Enter text ..." class="form-control" value="<?php echo $pagibigno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>PHILHEALTH No:</label>
+                            <input type="text" name="philhealthno" placeholder="Enter text ..." class="form-control" value="<?php echo $philhealthno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>SSS No:</label>
+                            <input type="text" name="sssno" placeholder="Enter text ..." class="form-control" value="<?php echo $sssno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>TIN No:</label>
+                            <input type="text" name="tinno" placeholder="Enter text ..." class="form-control" value="<?php echo $tinno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Agency Employee No:</label>
+                            <input type="text" name="agencyemployeeno" placeholder="Enter text ..." class="form-control" value="<?php echo $agencyemployeeno; ?>">
+                          </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Citizenship:</label>
-                          <input type="text" name="citizenship" placeholder="Enter text ..." class="form-control" value="<?php echo $citizenship; ?>">
+                        <div class="col-md-6">
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Citizenship:</label>
+                            <input type="text" name="citizenship" placeholder="Enter text ..." class="form-control" value="<?php echo $citizenship; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Residential Address:</label>
+                            <input type="text" name="residentialaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr1; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Residential Zip Code:</label>
+                            <input type="text" name="reszipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $reszipcode; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Permanent Address:</label>
+                            <input type="text" name="permanentaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr1; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Permanent Zip Code:</label>
+                            <input type="text" name="permzipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $permzipcode; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Telephone No:</label>
+                            <input type="text" name="telno" placeholder="Enter text ..." class="form-control" value="<?php echo $telno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>Mobile No:</label>
+                            <input type="text" name="mobileno" placeholder="Enter text ..." class="form-control" value="<?php echo $mobileno; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>E-mail Address (If Any):</label>
+                            <input type="text" name="emailaddr" placeholder="Enter text ..." class="form-control" value="<?php echo $emailaddr; ?>">
+                          </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Place of Birth:</label>
-                          <input type="text" name="birthplace" placeholder="Enter text ..." class="form-control" value="<?php echo $birthplace; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Sex:</label>
-                          <select name="gender" class="form-control">
-                            <option value=""> -- SELECT -- </option>
-                            <option value="M" <?php echo $gender == "M" ? "selected" : ""; ?>>Male</option>
-                            <option value="F" <?php echo $gender == "F" ? "selected" : ""; ?>>Female</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Civil Status:</label>
-                          <select name="civilstatus" class="form-control">
-                            <option value=""> -- SELECT -- </option>
-                            <option value="single" <?php echo $civilstatus == "single" ? "selected" : ""; ?>>Single</option>
-                            <option value="widowed" <?php echo $civilstatus == "widowed" ? "selected" : ""; ?>>Widowed</option>
-                            <option value="married" <?php echo $civilstatus == "married" ? "selected" : ""; ?>>Married</option>
-                            <option value="separated" <?php echo $civilstatus == "separated" ? "selected" : ""; ?>>Separated</option>
-                            <option value="others" <?php echo $civilstatus == "others" ? "selected" : ""; ?>>Other/s</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Residential Address:</label>
-                          <input type="text" name="residentialaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr1; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Height (m):</label>
-                          <input type="number" step=".01" min="0" name="height" placeholder="Enter text ..." class="form-control" value="<?php echo $height; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Residential Zip Code:</label>
-                          <input type="text" name="reszipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $reszipcode; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Weight (kg):</label>
-                          <input type="number" min="0" name="weight" placeholder="Enter text ..." class="form-control" value="<?php echo $weight; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Permanent Address:</label>
-                          <input type="text" name="permanentaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr1; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Blood Type:</label>
-                          <input type="text" name="bloodtype" placeholder="Enter text ..." class="form-control" value="<?php echo $bloodtype; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Permanent Zip Code:</label>
-                          <input type="text" name="permzipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $permzipcode; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>GSIS ID No:</label>
-                          <input type="text" name="gsisno" placeholder="Enter text ..." class="form-control" value="<?php echo $gsisno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>PAG-IBIG ID No:</label>
-                          <input type="text" name="pagibigno" placeholder="Enter text ..." class="form-control" value="<?php echo $pagibigno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>PHILHEALTH No:</label>
-                          <input type="text" name="philhealthno" placeholder="Enter text ..." class="form-control" value="<?php echo $philhealthno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>SSS No:</label>
-                          <input type="text" name="sssno" placeholder="Enter text ..." class="form-control" value="<?php echo $sssno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>TIN No:</label>
-                          <input type="text" name="tinno" placeholder="Enter text ..." class="form-control" value="<?php echo $tinno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Telephone No:</label>
-                          <input type="text" name="telno" placeholder="Enter text ..." class="form-control" value="<?php echo $telno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Mobile No:</label>
-                          <input type="text" name="mobileno" placeholder="Enter text ..." class="form-control" value="<?php echo $mobileno; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>E-mail Address:</label>
-                          <input type="text" name="emailaddr" placeholder="Enter text ..." class="form-control" value="<?php echo $emailaddr; ?>">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <label>Agency Employee No:</label>
-                          <input type="text" name="agencyemployeeno" placeholder="Enter text ..." class="form-control" value="<?php echo $agencyemployeeno; ?>">
-                        </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <br/>
                           <input type="submit" name="submit" value="Save Changes" class="btn btn-success">
                         </div>
-
                       </div>
                     </form>
                   </div>
