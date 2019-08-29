@@ -107,7 +107,7 @@
                         $height = $_POST["height"];
                         $weight = $_POST["weight"];
                         $bloodtype = strtoupper($_POST["bloodtype"]);
-                        $gsisno = $_POST["gsisno"];
+                        $gsisno = strtoupper($_POST["gsisno"]);
                         $pagibigno = $_POST["pagibigno"];
                         $philhealthno = $_POST["philhealthno"];
                         $sssno = $_POST["sssno"];
@@ -215,7 +215,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Height (m):</label>
-                          <input type="number" min="0" name="height" placeholder="Enter text ..." class="form-control" value="<?php echo $height; ?>">
+                          <input type="number" step=".01" min="0" name="height" placeholder="Enter text ..." class="form-control" value="<?php echo $height; ?>">
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Residential Zip Code:</label>
