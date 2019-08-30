@@ -91,7 +91,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Licenses</h2>
+                    <h2>Civil Service Eligibility</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -181,22 +181,22 @@
                         <div>
                           <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
                           <div class="col-md-9 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_licensename[]" placeholder="License' Name" class="form-control" value="<?php echo $licensename; ?>" data-toggle="tooltip" data-placement="top" title="License Name">
+                            <input type="text" name="up_licensename[]" placeholder="Career Service/RA 1080 (Board/Bar) under special laws/CES/CSEE/Barangay Eligibility/Driver's License" class="form-control" value="<?php echo $licensename; ?>" data-toggle="tooltip" data-placement="top" title="Career Service/RA 1080 (Board/Bar) under special laws/CES/CSEE/Barangay Eligibility/Driver's License">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_rating[]" placeholder="Rating" class="form-control" value="<?php echo $rating; ?>" data-toggle="tooltip" data-placement="top" title="Rating">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="date" name="up_examdate[]" placeholder="Exam Date" class="form-control" value="<?php echo $examdate; ?>" data-toggle="tooltip" data-placement="top" title="Exam Date">
+                            <input type="date" name="up_examdate[]" placeholder="Exam Date" class="form-control" value="<?php echo $examdate; ?>" data-toggle="tooltip" data-placement="top" title="Date of Examination">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_place[]" placeholder="Place" class="form-control" value="<?php echo $place; ?>" data-toggle="tooltip" data-placement="top" title="Place">
+                            <input type="text" name="up_place[]" placeholder="Place of Examination / Conferment" class="form-control" value="<?php echo $place; ?>" data-toggle="tooltip" data-placement="top" title="Place of Examination / Conferment">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_licenseno[]" placeholder="License No." class="form-control" value="<?php echo $licenseno; ?>" data-toggle="tooltip" data-placement="top" title="License No.">
                           </div>
                           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="date" name="up_validdate[]" placeholder="Valid Date" class="form-control" value="<?php echo $validdate; ?>" data-toggle="tooltip" data-placement="top" title="Valid Date">
+                            <input type="date" name="up_validdate[]" placeholder="Valid Date" class="form-control" value="<?php echo $validdate; ?>" data-toggle="tooltip" data-placement="top" title="Date of Validity">
                           </div>
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <a href="license.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
@@ -276,7 +276,7 @@
         var label = "<label class=\"irow" + counter + " labelText\">Item #" + counter + ":</label>";
         var template = "<div class=\"irow" + counter + " row\">" +
                           "<div class=\"col-md-9 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"licensename[]\" placeholder=\"License' Name\" class=\"form-control\">" +
+                            "<input type=\"text\" name=\"licensename[]\" placeholder=\"Career Service/RA 1080 (Board/Bar) under special laws/CES/CSEE/Barangay Eligibility/Driver's License\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"rating[]\" placeholder=\"Rating\" class=\"form-control\">" +
