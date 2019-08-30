@@ -267,19 +267,20 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.js"></script>
+    <script src="js/custom/global_set.js"></script>
 
 
     <script>
       function addItem(counter){
-        var label = "<label>Item #" + counter + ":</label>";
-        var template = "<div>" +
+        var label = "<label class=\"irow" + counter + " labelText\">Item #" + counter + ":</label>";
+        var template = "<div class=\"irow" + counter + " row\">" +
                           "<div class=\"col-md-9 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"licensename[]\" placeholder=\"License' Name\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"rating[]\" placeholder=\"Rating\" class=\"form-control\">" +
                           "</div>" +
-                          "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
+                          "<div class=\"col-md-2\ col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"date\" name=\"examdate[]\" placeholder=\"Exam Date\" class=\"form-control\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Examination Date\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
@@ -291,6 +292,9 @@
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"date\" name=\"validdate[]\" placeholder=\"Valid Date\" class=\"form-control\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Valid Date\">" +
                           "</div>" +
+                          "<div class=\"col-md-1 col-sm-12 col-xs-12 form-group\">" +
+                            "<button type=\"button\" class=\"btn btn-danger\" onclick=\"removeRow('.irow" + counter + "')\"><span class=\"fa fa-close\"></span></button>" +
+                          "</div>" +
                         "</div>";
         $("#item_container").append(label + template);
       }
@@ -299,6 +303,7 @@
       $("#add_item").on('click', function(){
         addItem(counter);
         counter++;
+        resCount();
       });
     </script>
   </body>
