@@ -75,8 +75,9 @@
                 if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
               ?>
               <div class="title_right">
-                <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right">
+                <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
                   <a href="employee.php" class="btn btn-info"><span class="fa fa-arrow-left"></span> Go Back (Employee)</a>
+                  <a href="work_experience.php?employeeid=<?php echo $_GET["employeeid"];?>" class="btn btn-success"><span class="fa fa-arrow-right"></span> Next (Work Experience)</a>
                 </div>
               </div>
               <?php

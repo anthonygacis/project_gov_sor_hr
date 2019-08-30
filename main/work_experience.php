@@ -76,7 +76,7 @@
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
-                  <a href="employee.php" class="btn btn-info"><span class="fa fa-arrow-left"></span> Go Back (Employee)</a><a href="license.php?employeeid=<?php echo $_GET["employeeid"];?>" class="btn btn-success"><span class="fa fa-arrow-right"></span> Next (License)</a>
+                  <a href="employee.php" class="btn btn-info"><span class="fa fa-arrow-left"></span> Go Back (Employee)</a>
                 </div>
               </div>
               <?php
@@ -90,7 +90,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Educational Background</h2>
+                    <h2>Work Experience</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -102,16 +102,16 @@
                         if (isset($_POST["up_itemno"])) {
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
-                            $up_educlevel = $_POST["up_educlevel"][$i];
-                            $up_schoolname = strtoupper($_POST["up_schoolname"][$i]);
-                            $up_degree = strtoupper($_POST["up_degree"][$i]);
-                            $up_periodfrom = strtoupper($_POST["up_periodfrom"][$i]);
-                            $up_periodto = strtoupper($_POST["up_periodto"][$i]);
-                            $up_unitsearned = strtoupper($_POST["up_unitsearned"][$i]);
-                            $up_yrgraduate = strtoupper($_POST["up_yrgraduate"][$i]);
-                            $up_honors = strtoupper($_POST["up_honors"][$i]);
+                            $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
+                            $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            $up_position_title = strtoupper($_POST["up_position_title"][$i]);
+                            $up_agency_name = strtoupper($_POST["up_agency_name"][$i]);
+                            $up_monthly_salary = $_POST["up_monthly_salary"][$i];
+                            $up_salary_grade = strtoupper($_POST["up_salary_grade"][$i]);
+                            $up_status_of_appointment = strtoupper($_POST["up_status_of_appointment"][$i]);
+                            $up_is_gov_service = $_POST["up_is_gov_service"][$i];
 
-                            $in = DB::run("UPDATE educbackground SET educlevel = ?, schoolname = ?, degree = ?, periodfrom = ?, periodto = ?, unitsearned = ?, yrgraduate = ?, honors = ? WHERE employeeid = ? AND itemno = ?", [$up_educlevel, $up_schoolname, $up_degree, $up_periodfrom, $up_periodto, $up_unitsearned, $up_yrgraduate, $up_honors, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -129,18 +129,18 @@
 
                         // adding item
                         $add = false;
-                        if (isset($_POST["schoolname"])) {
-                          for ($i=0; $i < count($_POST["schoolname"]); $i++) {
-                            $educlevel = $_POST["educlevel"][$i];
-                            $schoolname = strtoupper($_POST["schoolname"][$i]);
-                            $degree = strtoupper($_POST["degree"][$i]);
-                            $periodfrom = strtoupper($_POST["periodfrom"][$i]);
-                            $periodto = strtoupper($_POST["periodto"][$i]);
-                            $unitsearned = strtoupper($_POST["unitsearned"][$i]);
-                            $yrgraduate = strtoupper($_POST["yrgraduate"][$i]);
-                            $honors = strtoupper($_POST["honors"][$i]);
+                        if (isset($_POST["position_title"])) {
+                          for ($i=0; $i < count($_POST["position_title"]); $i++) {
+                            $inclusivedate_from = $_POST["inclusivedate_from"][$i];
+                            $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            $position_title = strtoupper($_POST["position_title"][$i]);
+                            $agency_name = strtoupper($_POST["agency_name"][$i]);
+                            $monthly_salary = $_POST["monthly_salary"][$i];
+                            $salary_grade = strtoupper($_POST["salary_grade"][$i]);
+                            $status_of_appointment = strtoupper($_POST["status_of_appointment"][$i]);
+                            $is_gov_service = $_POST["is_gov_service"][$i];
 
-                            $in = DB::run("INSERT INTO educbackground(employeeid, educlevel, schoolname, degree, periodfrom, periodto, unitsearned, yrgraduate, honors) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $educlevel, $schoolname, $degree, $periodfrom, $periodto, $unitsearned, $yrgraduate, $honors]);
+                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0)]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -162,7 +162,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM educbackground WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM work_experience WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -178,60 +178,62 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM educbackground WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM work_experience WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
-                            $educlevel = $row["educlevel"];
-                            $schoolname = $row["schoolname"];
-                            $degree = $row["degree"];
-                            $periodfrom = $row["periodfrom"];
-                            $periodto = $row["periodto"];
-                            $unitsearned = $row["unitsearned"];
-                            $yrgraduate = $row["yrgraduate"];
-                            $honors = $row["honors"];
+                            $inclusivedate_from = $row["inclusivedate_from"];
+                            $inclusivedate_to = $row["inclusivedate_to"];
+                            $position_title = $row["position_title"];
+                            $agency_name = $row["agency_name"];
+                            $monthly_salary = $row["monthly_salary"];
+                            $salary_grade = $row["salary_grade"];
+                            $status_of_appointment = $row["status_of_appointment"];
+                            $is_gov_service = $row["is_gov_service"];
                         ?>
                         <label>Row <?php echo "#" . $counter; ?>:</label>
-                        <div>
-                          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
-                            <select class="form-control" name="up_educlevel[]" data-toggle="tooltip" data-placement="top" title="Educational Level">
-                              <option value=""> -- Select Education Level -- </option>
-                              <option value="elementary" <?php echo $educlevel == "elementary" ? "selected" : ""; ?>>Elementary</option>
-                              <option value="secondary" <?php echo $educlevel == "secondary" ? "selected" : ""; ?>>Secondary</option>
-                              <option value="vocational" <?php echo $educlevel == "vocational" ? "selected" : ""; ?>>Vocational / Trade Course</option>
-                              <option value="college" <?php echo $educlevel == "college" ? "selected" : ""; ?>>College</option>
-                              <option value="graduate" <?php echo $educlevel == "graduate" ? "selected" : ""; ?>>Graduate Studies</option>
+                        <div class="row">
+                          <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <label>From:</label>
+                            <input type="date" name="up_inclusivedate_from[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (From)" class="form-control" value="<?php echo $row["inclusivedate_from"]; ?>">
+                          </div>
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <label>To:</label>
+                            <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>">
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label>&nbsp;</label>
+                            <input type="text" name="up_position_title[]" data-toggle="tooltip" data-placement="top" title="Position Title (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["position_title"]; ?>">
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label>&nbsp;</label>
+                            <input type="text" name="up_agency_name[]" data-toggle="tooltip" data-placement="top" title="Department/Agency/Office/Company (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["agency_name"]; ?>">
+                          </div>
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <input type="number" min="0" step="0.01" name="up_monthly_salary[]" data-toggle="tooltip" data-placement="top" title="Monthly Salary" class="form-control" value="<?php echo $row["monthly_salary"]; ?>">
+                          </div>
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <input type="text" name="up_salary_grade[]" data-toggle="tooltip" data-placement="top" title="Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)" class="form-control" value="<?php echo $row["salary_grade"]; ?>">
+                          </div>
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <input type="text" name="up_status_of_appointment[]" data-toggle="tooltip" data-placement="top" title="Status of Appointment" class="form-control" value="<?php echo $row["status_of_appointment"]; ?>">
+                          </div>
+                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            <select class="form-control" name="up_is_gov_service[]" data-toggle="tooltip" data-placement="top" title="Is Government Service? ">
+                              <option value=""> -- Government Service (Y/N) -- </option>
+                              <option value="yes" <?php echo ($is_gov_service == 1 ? 'selected' : '')?>>Yes</option>
+                              <option value="no" <?php echo ($is_gov_service == 0 ? 'selected' : '')?>>No</option>
                             </select>
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_schoolname[]" placeholder="Name of School (Enter in full)" class="form-control" value="<?php echo $schoolname; ?>" data-toggle="tooltip" data-placement="top" title="Name of School">
-                          </div>
-                          <div class="col-md-5 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_degree[]" placeholder="Basic Education/Degree/Course (Enter in full)" class="form-control" value="<?php echo $degree; ?>" data-toggle="tooltip" data-placement="top" title="Basic Education/Degree/Course">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_periodfrom[]" placeholder="Period of Attendance (From)" class="form-control" value="<?php echo $periodfrom; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (From)">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_periodto[]" placeholder="Period of Attendance (To)" class="form-control" value="<?php echo $periodto; ?>" data-toggle="tooltip" data-placement="top" title="Period of Attendance (To)">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_unitsearned[]" placeholder="Highest Level/Units Earned" class="form-control" value="<?php echo $unitsearned; ?>" data-toggle="tooltip" data-placement="top" title="Highest Level/Units Earned">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" name="up_yrgraduate[]" placeholder="Year Graduated" class="form-control" value="<?php echo $yrgraduate; ?>" data-toggle="tooltip" data-placement="top" title="Year Graduated">
-                          </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_honors[]" placeholder="Scholarship / Academic Honors Received" class="form-control" value="<?php echo $honors; ?>" data-toggle="tooltip" data-placement="top" title="Scholarship / Academic Honors Received">
-                          </div>
-                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <a href="educational_background.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
+                            <a href="work_experience.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php
                             $counter++;
                           }
                         ?>
+                        &nbsp;
                         <div id="item_container">
                         </div>
                         <!-- Commands -->
@@ -243,7 +245,6 @@
                           <br/>
                           <input type="submit" name="submit" value="Save Changes" class="btn btn-success">
                         </div>
-
                       </div>
                     </form>
                   </div>
@@ -298,38 +299,39 @@
       function addItem(counter){
         var label = "<label class=\"irow" + counter + " labelText\">Item #" + counter + ":</label>";
         var template = "<div class=\"irow" + counter + " row\">" +
-                          "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<select class=\"form-control\" name=\"educlevel[]\">" +
-                              "<option value=\"\"> -- Select Education Level -- </option>" +
-                              "<option value=\"elementary\">Elementary</option>" +
-                              "<option value=\"secondary\">Secondary</option>" +
-                              "<option value=\"vocational\">Vocational / Trade Course</option>" +
-                              "<option value=\"college\">College</option>" +
-                              "<option value=\"graduate\">Graduate Studies</option>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>From:</label>" +
+                            "<input type=\"date\" name=\"inclusivedate_from[]\" placeholder=\"Inclusive Dates (From)\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>To:</label>" +
+                            "<input type=\"date\" name=\"inclusivedate_to[]\" placeholder=\"Inclusive Dates (To)\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>&nbsp;</label>" +
+                            "<input type=\"text\" name=\"position_title[]\" placeholder=\"Position Title (Write in full/Do not abbreviate)\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>&nbsp;</label>" +
+                            "<input type=\"text\" name=\"agency_name[]\" placeholder=\"Department/Agency/Office/Company (Write in full/Do not abbreviate)\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"number\" min=\"0\" step=\"0.01\" name=\"monthly_salary[]\" placeholder=\"Monthly Salary\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"text\" name=\"salary_grade[]\" placeholder=\"Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"text\" name=\"status_of_appointment[]\" placeholder=\"Status of Appointment\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
+                            "<select class=\"form-control\" name=\"is_gov_service[]\">" +
+                              "<option value=\"\"> -- Government Service (Y/N) -- </option>" +
+                              "<option value=\"yes\">Yes</option>" +
+                              "<option value=\"no\">No</option>" +
                             "</select>" +
                           "</div>" +
                           "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"schoolname[]\" placeholder=\"Name of School (Enter in full)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-5 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"degree[]\" placeholder=\"Basic Education/Degree/Course (Enter in full)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"periodfrom[]\" placeholder=\"Period of Attendance (From)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"periodto[]\" placeholder=\"Period of Attendance (To)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"unitsearned[]\" placeholder=\"Highest Level/Units Earned\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"yrgraduate\" placeholder=\"Year Graduated\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"honors[]\" placeholder=\"Scholarship / Academic Honors Received\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-1 col-sm-12 col-xs-12 form-group\">" +
                             "<button type=\"button\" class=\"btn btn-danger\" onclick=\"removeRow('.irow" + counter + "')\"><span class=\"fa fa-close\"></span></button>" +
                           "</div>" +
                         "</div>";
