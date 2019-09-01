@@ -104,7 +104,14 @@
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
                             $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
-                            $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            if(isset($_POST["up_is_present"][$i])){
+                              $up_inclusivedate_to = null;
+                              $up_is_present = 1;
+                            }else{
+                              $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                              $up_is_present = 0;
+                            }
+
                             $up_position_title = strtoupper($_POST["up_position_title"][$i]);
                             $up_agency_name = strtoupper($_POST["up_agency_name"][$i]);
                             $up_monthly_salary = $_POST["up_monthly_salary"][$i];
@@ -112,7 +119,7 @@
                             $up_status_of_appointment = strtoupper($_POST["up_status_of_appointment"][$i]);
                             $up_is_gov_service = $_POST["up_is_gov_service"][$i];
 
-                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ?, is_present = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), $up_is_present, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -133,7 +140,13 @@
                         if (isset($_POST["position_title"])) {
                           for ($i=0; $i < count($_POST["position_title"]); $i++) {
                             $inclusivedate_from = $_POST["inclusivedate_from"][$i];
-                            $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            if(isset($_POST["is_present"][$i])){
+                              $inclusivedate_to = null;
+                              $is_present = 1;
+                            }else{
+                              $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                              $is_present = 0;
+                            }
                             $position_title = strtoupper($_POST["position_title"][$i]);
                             $agency_name = strtoupper($_POST["agency_name"][$i]);
                             $monthly_salary = $_POST["monthly_salary"][$i];
@@ -141,7 +154,7 @@
                             $status_of_appointment = strtoupper($_POST["status_of_appointment"][$i]);
                             $is_gov_service = $_POST["is_gov_service"][$i];
 
-                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0)]);
+                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service, is_present) VALUES(?,?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0), $is_present]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -190,19 +203,24 @@
                             $salary_grade = $row["salary_grade"];
                             $status_of_appointment = $row["status_of_appointment"];
                             $is_gov_service = $row["is_gov_service"];
+                            $is_present = $row["is_present"];
                         ?>
                         <label>Row <?php echo "#" . $counter; ?>:</label>
                         <div class="row">
                           <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <label>From:</label>
-                            <input type="date" name="up_inclusivedate_from[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (From)" class="form-control" value="<?php echo $row["inclusivedate_from"]; ?>">
+                            <input type="date" name="up_inclusivedate_from[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (From)" class="form-control" value="<?php echo $row["inclusivedate_from"]; ?>" required>
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <label>To:</label>
-                            <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>">
+                            <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>" <?php echo ($is_present == 1) ? 'disabled' : '' ?> id="iTo<?php echo $counter; ?>" required>
                           </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                          <div class="col-md-1 col-sm-12 col-xs-12 form-group">
+                            <label>Present Job?</label> <br/>
+                            <label><input type="checkbox" name="up_is_present[]" class="isPresent" data-checkval="<?php echo $counter; ?>" <?php echo ($is_present == 1) ? 'checked' : '' ?>> Yes</label>
+                          </div>
+                          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                             <label>&nbsp;</label>
                             <input type="text" name="up_position_title[]" data-toggle="tooltip" data-placement="top" title="Position Title (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["position_title"]; ?>">
                           </div>
@@ -302,13 +320,17 @@
         var template = "<div class=\"irow" + counter + " row\">" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<label>From:</label>" +
-                            "<input type=\"date\" name=\"inclusivedate_from[]\" placeholder=\"Inclusive Dates (From)\" class=\"form-control\">" +
+                            "<input type=\"date\" name=\"inclusivedate_from[]\" placeholder=\"Inclusive Dates (From)\" class=\"form-control\" required>" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<label>To:</label>" +
-                            "<input type=\"date\" name=\"inclusivedate_to[]\" placeholder=\"Inclusive Dates (To)\" class=\"form-control\">" +
+                            "<input type=\"date\" name=\"inclusivedate_to[]\" placeholder=\"Inclusive Dates (To)\" class=\"form-control\" id=\"iTo" + counter + "\" required>" +
                           "</div>" +
-                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                          "<div class=\"col-md-1 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>Present Job?</label> <br/>" +
+                            "<label><input type=\"checkbox\" name=\"is_present[]\" class=\"isPresent\" data-checkval=\"" + counter + "\"> Yes</label>" +
+                          "</div>" +
+                          "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<label>&nbsp;</label>" +
                             "<input type=\"text\" name=\"position_title[]\" placeholder=\"Position Title (Write in full/Do not abbreviate)\" class=\"form-control\">" +
                           "</div>" +
@@ -339,12 +361,30 @@
         $("#item_container").append(label + template);
       }
 
-      var counter = 1;
+      var counter = <?php echo $counter; ?>;
       $("#add_item").on('click', function(){
         addItem(counter);
         counter++;
         resCount();
       });
+      $(document).on('change', '[type=checkbox]', function(e){
+        if(checkerOnce() > 1){
+          alert('Only one job entry should be marked as present');
+          $(this).prop('checked', false)
+        }else{
+          if($(this).prop('checked')){
+            $('#iTo' + $(this).attr('data-checkval')).prop('disabled', true);
+          }else{
+            $('#iTo' + $(this).attr('data-checkval')).prop('disabled', false);
+          }
+        }
+      });
+
+      function checkerOnce(){
+        var $checkboxes = $('input[type="checkbox"]');
+        var totalChecked = $checkboxes.filter(':checked').length
+        return totalChecked;
+      }
     </script>
   </body>
   <script>
