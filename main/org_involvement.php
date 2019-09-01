@@ -90,7 +90,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Work Experience</h2>
+                    <h2>Voluntary Work or Involvement in Civic / Non-Government / People / Voluntary Organizations</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -104,14 +104,12 @@
                             $up_itemno = $_POST["up_itemno"][$i];
                             $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
                             $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
-                            $up_position_title = strtoupper($_POST["up_position_title"][$i]);
-                            $up_agency_name = strtoupper($_POST["up_agency_name"][$i]);
-                            $up_monthly_salary = $_POST["up_monthly_salary"][$i];
-                            $up_salary_grade = strtoupper($_POST["up_salary_grade"][$i]);
-                            $up_status_of_appointment = strtoupper($_POST["up_status_of_appointment"][$i]);
-                            $up_is_gov_service = $_POST["up_is_gov_service"][$i];
+                            $up_org_name = strtoupper($_POST["up_org_name"][$i]);
+                            $up_org_address = strtoupper($_POST["up_org_address"][$i]);
+                            $up_no_of_hours = $_POST["up_no_of_hours"][$i];
+                            $up_position_nature = strtoupper($_POST["up_position_nature"][$i]);
 
-                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE org_involvement SET inclusivedate_from = ?, inclusivedate_to = ?, org_name = ?, org_address = ?, no_of_hours = ?, position_nature = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_org_name, $up_org_address, $up_no_of_hours, $up_position_nature, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -129,18 +127,16 @@
 
                         // adding item
                         $add = false;
-                        if (isset($_POST["position_title"])) {
-                          for ($i=0; $i < count($_POST["position_title"]); $i++) {
+                        if (isset($_POST["org_name"])) {
+                          for ($i=0; $i < count($_POST["org_name"]); $i++) {
                             $inclusivedate_from = $_POST["inclusivedate_from"][$i];
                             $inclusivedate_to = $_POST["inclusivedate_to"][$i];
-                            $position_title = strtoupper($_POST["position_title"][$i]);
-                            $agency_name = strtoupper($_POST["agency_name"][$i]);
-                            $monthly_salary = $_POST["monthly_salary"][$i];
-                            $salary_grade = strtoupper($_POST["salary_grade"][$i]);
-                            $status_of_appointment = strtoupper($_POST["status_of_appointment"][$i]);
-                            $is_gov_service = $_POST["is_gov_service"][$i];
+                            $org_name = strtoupper($_POST["org_name"][$i]);
+                            $org_address = strtoupper($_POST["org_address"][$i]);
+                            $no_of_hours = $_POST["no_of_hours"][$i];
+                            $position_nature = strtoupper($_POST["position_nature"][$i]);
 
-                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0)]);
+                            $in = DB::run("INSERT INTO org_involvement(employeeid, inclusivedate_from, inclusivedate_to, org_name, org_address, no_of_hours, position_nature) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $org_name, $org_address, $no_of_hours, $position_nature]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -162,7 +158,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM work_experience WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM org_involvement WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -178,21 +174,27 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM work_experience WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM org_involvement WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $inclusivedate_from = $row["inclusivedate_from"];
                             $inclusivedate_to = $row["inclusivedate_to"];
-                            $position_title = $row["position_title"];
-                            $agency_name = $row["agency_name"];
-                            $monthly_salary = $row["monthly_salary"];
-                            $salary_grade = $row["salary_grade"];
-                            $status_of_appointment = $row["status_of_appointment"];
-                            $is_gov_service = $row["is_gov_service"];
+                            $org_name = $row["org_name"];
+                            $org_address = $row["org_address"];
+                            $no_of_hours = $row["no_of_hours"];
+                            $position_nature = $row["position_nature"];
                         ?>
                         <label>Row <?php echo "#" . $counter; ?>:</label>
                         <div class="row">
                           <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
+                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label>&nbsp;</label>
+                            <input type="text" name="up_org_name[]" data-toggle="tooltip" data-placement="top" title="Name of Organization" class="form-control" value="<?php echo $row["org_name"]; ?>">
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label>&nbsp;</label>
+                            <input type="text" name="up_org_address[]" data-toggle="tooltip" data-placement="top" title="Address of Organization" class="form-control" value="<?php echo $row["org_address"]; ?>">
+                          </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <label>From:</label>
                             <input type="date" name="up_inclusivedate_from[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (From)" class="form-control" value="<?php echo $row["inclusivedate_from"]; ?>">
@@ -201,32 +203,14 @@
                             <label>To:</label>
                             <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>">
                           </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <label>&nbsp;</label>
-                            <input type="text" name="up_position_title[]" data-toggle="tooltip" data-placement="top" title="Position Title (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["position_title"]; ?>">
-                          </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <label>&nbsp;</label>
-                            <input type="text" name="up_agency_name[]" data-toggle="tooltip" data-placement="top" title="Department/Agency/Office/Company (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["agency_name"]; ?>">
-                          </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" step="0.01" name="up_monthly_salary[]" data-toggle="tooltip" data-placement="top" title="Monthly Salary" class="form-control" value="<?php echo $row["monthly_salary"]; ?>">
+                            <input type="number" min="0" step="0.01" name="up_no_of_hours[]" data-toggle="tooltip" data-placement="top" title="No. of Hours" class="form-control" value="<?php echo $row["no_of_hours"]; ?>">
                           </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_salary_grade[]" data-toggle="tooltip" data-placement="top" title="Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)" class="form-control" value="<?php echo $row["salary_grade"]; ?>">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="text" name="up_status_of_appointment[]" data-toggle="tooltip" data-placement="top" title="Status of Appointment" class="form-control" value="<?php echo $row["status_of_appointment"]; ?>">
-                          </div>
-                          <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <select class="form-control" name="up_is_gov_service[]" data-toggle="tooltip" data-placement="top" title="Is Government Service? ">
-                              <option value=""> -- Government Service (Y/N) -- </option>
-                              <option value="yes" <?php echo ($is_gov_service == 1 ? 'selected' : '')?>>Yes</option>
-                              <option value="no" <?php echo ($is_gov_service == 0 ? 'selected' : '')?>>No</option>
-                            </select>
+                          <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                            <input type="text" name="up_position_nature[]" data-toggle="tooltip" data-placement="top" title="Position / Nature of Work" class="form-control" value="<?php echo $row["position_nature"]; ?>">
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <a href="work_experience.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
+                            <a href="org_involvement.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php
@@ -299,37 +283,27 @@
       function addItem(counter){
         var label = "<label class=\"irow" + counter + " labelText\">Item #" + counter + ":</label>";
         var template = "<div class=\"irow" + counter + " row\">" +
+                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>&nbsp;</label>" +
+                            "<input type=\"text\" name=\"org_name[]\" placeholder=\"Name of Organization\" class=\"form-control\">" +
+                          "</div>" +
+                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                            "<label>&nbsp;</label>" +
+                            "<input type=\"text\" name=\"org_address[]\" placeholder=\"Address of Organization\" class=\"form-control\">" +
+                          "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<label>From:</label>" +
-                            "<input type=\"date\" name=\"inclusivedate_from[]\" placeholder=\"Inclusive Dates (From)\" class=\"form-control\">" +
+                            "<input type=\"date\" name=\"inclusivedate_from[]\" title=\"Inclusive Dates (From)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<label>To:</label>" +
-                            "<input type=\"date\" name=\"inclusivedate_to[]\" placeholder=\"Inclusive Dates (To)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
-                            "<label>&nbsp;</label>" +
-                            "<input type=\"text\" name=\"position_title[]\" placeholder=\"Position Title (Write in full/Do not abbreviate)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
-                            "<label>&nbsp;</label>" +
-                            "<input type=\"text\" name=\"agency_name[]\" placeholder=\"Department/Agency/Office/Company (Write in full/Do not abbreviate)\" class=\"form-control\">" +
+                            "<input type=\"date\" name=\"inclusivedate_to[]\" title=\"Inclusive Dates (To)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" step=\"0.01\" name=\"monthly_salary[]\" placeholder=\"Monthly Salary\" class=\"form-control\">" +
+                            "<input type=\"number\" min=\"0\" step=\"0.01\" name=\"no_of_hours[]\" placeholder=\"No. of Hours\" class=\"form-control\">" +
                           "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"salary_grade[]\" placeholder=\"Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"text\" name=\"status_of_appointment[]\" placeholder=\"Status of Appointment\" class=\"form-control\">" +
-                          "</div>" +
-                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<select class=\"form-control\" name=\"is_gov_service[]\">" +
-                              "<option value=\"\"> -- Government Service (Y/N) -- </option>" +
-                              "<option value=\"yes\">Yes</option>" +
-                              "<option value=\"no\">No</option>" +
-                            "</select>" +
+                          "<div class=\"col-md-6 col-sm-12 col-xs-12 form-group\">" +
+                            "<input type=\"text\" name=\"position_nature[]\" placeholder=\"Position / Nature of Work\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
                             "<button type=\"button\" class=\"btn btn-danger\" onclick=\"removeRow('.irow" + counter + "')\"><span class=\"fa fa-close\"></span></button>" +
