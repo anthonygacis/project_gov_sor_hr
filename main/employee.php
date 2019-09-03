@@ -27,6 +27,19 @@
     $update = DB::run("DELETE FROM employee WHERE employeeid = ?", [$employeeid]);
 
     if($update->rowCount() > 0){
+      // remove all dependencies
+      DB::run("DELETE FROM appointment WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM back_related WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM educbackground WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM empchildren WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM emp_references WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM license WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM org_involvement WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM other_info WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM training_prog WHERE employeeid = ?", [$employeeid]);
+      DB::run("DELETE FROM work_experience WHERE employeeid = ?", [$employeeid]);
+
+
       $modify_success["delete"] = true;
     }else{
       $modify_success["delete"] = false;
