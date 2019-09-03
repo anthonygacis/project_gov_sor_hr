@@ -77,6 +77,7 @@
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
                   <a href="employee.php" class="btn btn-info"><span class="fa fa-arrow-left"></span> Go Back (Employee)</a>
+                  <a href="emp_ques.php?employeeid=<?php echo $_GET["employeeid"];?>" class="btn btn-success"><span class="fa fa-arrow-right"></span> Next (Yes-No Questions)</a>
                 </div>
               </div>
               <?php

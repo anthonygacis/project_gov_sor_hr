@@ -49,6 +49,9 @@
     $upMes = false;
     if($in->rowCount() > 0){
       $lastId = DB::getLastInsertedID();
+      // create an entry for table back_related
+      $iin = DB::run("INSERT INTO back_related(employeeid) VALUES(?)", [$lastId]);
+
       // proceed to personal info
       header("Location: personal_info.php?employeeid=" . $lastId);
     }
