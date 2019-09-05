@@ -115,14 +115,18 @@
                         $agencyemployeeno = $_POST["agencyemployeeno"];
                         $citizenship = strtoupper($_POST["citizenship"]);
                         $residentialaddr1 = strtoupper($_POST["residentialaddr1"]);
+                        $residentialaddr2 = strtoupper($_POST["residentialaddr2"]);
+                        $residentialaddr3 = strtoupper($_POST["residentialaddr3"]);
                         $reszipcode = $_POST["reszipcode"];
                         $permanentaddr1 = strtoupper($_POST["permanentaddr1"]);
+                        $permanentaddr2 = strtoupper($_POST["permanentaddr2"]);
+                        $permanentaddr3 = strtoupper($_POST["permanentaddr3"]);
                         $permzipcode = $_POST["permzipcode"];
                         $telno = $_POST["telno"];
                         $mobileno = $_POST["mobileno"];
                         $emailaddr = $_POST["emailaddr"];
 
-                        $up  = DB::run("UPDATE employee SET lname = ?, fname = ?, midname = ?, midinit = ?, birthdate = ?, birthplace = ?, gender = ?, civilstatus = ?, height = ?, weight = ?, bloodtype = ?, gsisno = ?, pagibigno = ?, philhealthno = ?, sssno = ?, tinno = ?, agencyemployeeno = ?, citizenship = ?, residentialaddr1 = ?, reszipcode = ?, permanentaddr1 = ?, permzipcode = ?, telno = ?, mobileno = ?, emailaddr = ? WHERE employeeid = ?", [$lname, $fname, $midname, $midinit, $birthdate, $birthplace, $gender, $civilstatus, $height, $weight, $bloodtype, $gsisno, $pagibigno, $philhealthno, $sssno, $tinno, $agencyemployeeno, $citizenship, $residentialaddr1, $reszipcode, $permanentaddr1, $permzipcode, $telno, $mobileno, $emailaddr, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                        $up  = DB::run("UPDATE employee SET lname = ?, fname = ?, midname = ?, midinit = ?, birthdate = ?, birthplace = ?, gender = ?, civilstatus = ?, height = ?, weight = ?, bloodtype = ?, gsisno = ?, pagibigno = ?, philhealthno = ?, sssno = ?, tinno = ?, agencyemployeeno = ?, citizenship = ?, residentialaddr1 = ?, residentialaddr2 = ?, residentialaddr3 = ?, reszipcode = ?, permanentaddr1 = ?, permanentaddr2 = ?, permanentaddr3 = ?, permzipcode = ?, telno = ?, mobileno = ?, emailaddr = ? WHERE employeeid = ?", [$lname, $fname, $midname, $midinit, $birthdate, $birthplace, $gender, $civilstatus, $height, $weight, $bloodtype, $gsisno, $pagibigno, $philhealthno, $sssno, $tinno, $agencyemployeeno, $citizenship, $residentialaddr1, $residentialaddr2, $residentialaddr3, $reszipcode, $permanentaddr1, $permanentaddr2, $permanentaddr3, $permzipcode, $telno, $mobileno, $emailaddr, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
 
                         if($up->rowCount() > 0){
                     ?>
@@ -154,10 +158,19 @@
                         $tinno = $row["tinno"];
                         $agencyemployeeno = $row["agencyemployeeno"];
                         $citizenship = $row["citizenship"];
+
                         $residentialaddr1 = $row["residentialaddr1"];
+                        $residentialaddr2 = $row["residentialaddr2"];
+                        $residentialaddr3 = $row["residentialaddr3"];
+
                         $reszipcode = $row["reszipcode"];
+
                         $permanentaddr1 = $row["permanentaddr1"];
+                        $permanentaddr2 = $row["permanentaddr2"];
+                        $permanentaddr3 = $row["permanentaddr3"];
+
                         $permzipcode = $row["permzipcode"];
+
                         $telno = $row["telno"];
                         $mobileno = $row["mobileno"];
                         $emailaddr = $row["emailaddr"];
@@ -250,22 +263,48 @@
                             <label>Citizenship:</label>
                             <input type="text" name="citizenship" placeholder="Enter text ..." class="form-control" value="<?php echo $citizenship; ?>">
                           </div>
+                          <div class="clearfix"></div>
+                          <hr/>
+                          <!-- residential -->
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <label>Residential Address:</label>
+                            <label>RESIDENTIAL ADDRESS: House/Block/Lot No. and Street:</label>
                             <input type="text" name="residentialaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr1; ?>">
                           </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>RESIDENTIAL ADDRESS: Subdivision/Village and Barangay:</label>
+                            <input type="text" name="residentialaddr2" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr2; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>RESIDENTIAL ADDRESS: City/Municipality and Province:</label>
+                            <input type="text" name="residentialaddr3" placeholder="Enter text ..." class="form-control" value="<?php echo $residentialaddr3; ?>">
+                          </div>
+                          <!-- residential -->
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <label>Residential Zip Code:</label>
                             <input type="text" name="reszipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $reszipcode; ?>">
                           </div>
+                          <div class="clearfix"></div>
+                          <hr/>
+                          <!-- permanent -->
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <label>Permanent Address:</label>
+                            <label>PERMANENT ADDRESS: House/Block/Lot No. and Street:</label>
                             <input type="text" name="permanentaddr1" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr1; ?>">
                           </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>PERMANENT ADDRESS: Subdivision/Village and Barangay:</label>
+                            <input type="text" name="permanentaddr2" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr2; ?>">
+                          </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label>PERMANENT ADDRESS: City/Municipality and Province:</label>
+                            <input type="text" name="permanentaddr3" placeholder="Enter text ..." class="form-control" value="<?php echo $permanentaddr3; ?>">
+                          </div>
+                          <!-- permanent -->
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <label>Permanent Zip Code:</label>
                             <input type="text" name="permzipcode" placeholder="Enter text ..." class="form-control" value="<?php echo $permzipcode; ?>">
                           </div>
+                          <div class="clearfix"></div>
+                          <hr/>
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             <label>Telephone No:</label>
                             <input type="text" name="telno" placeholder="Enter text ..." class="form-control" value="<?php echo $telno; ?>">

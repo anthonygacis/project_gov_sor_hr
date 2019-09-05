@@ -103,11 +103,23 @@
                         if (isset($_POST["up_itemno"])) {
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
-                            $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
-                            $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            if($_POST["up_inclusivedate_from"][$i] == ''){
+                              $up_inclusivedate_from = null;
+                            }else{
+                              $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
+                            }
+                            if($_POST["up_inclusivedate_to"][$i] == ''){
+                              $up_inclusivedate_to = null;
+                            }else{
+                              $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            }
                             $up_org_name = strtoupper($_POST["up_org_name"][$i]);
                             $up_org_address = strtoupper($_POST["up_org_address"][$i]);
-                            $up_no_of_hours = $_POST["up_no_of_hours"][$i];
+                            if($_POST["up_no_of_hours"][$i] == ''){
+                              $up_no_of_hours = null;
+                            }else{
+                              $up_no_of_hours = $_POST["up_no_of_hours"][$i];
+                            }
                             $up_position_nature = strtoupper($_POST["up_position_nature"][$i]);
 
                             $in = DB::run("UPDATE org_involvement SET inclusivedate_from = ?, inclusivedate_to = ?, org_name = ?, org_address = ?, no_of_hours = ?, position_nature = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_org_name, $up_org_address, $up_no_of_hours, $up_position_nature, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
@@ -130,11 +142,23 @@
                         $add = false;
                         if (isset($_POST["org_name"])) {
                           for ($i=0; $i < count($_POST["org_name"]); $i++) {
-                            $inclusivedate_from = $_POST["inclusivedate_from"][$i];
-                            $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            if($_POST["inclusivedate_from"][$i] == null){
+                              $inclusivedate_from = null;
+                            }else{
+                              $inclusivedate_from = $_POST["inclusivedate_from"][$i];
+                            }
+                            if($_POST["inclusivedate_to"][$i] == ''){
+                              $inclusivedate_to = null;
+                            }else{
+                              $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            }
                             $org_name = strtoupper($_POST["org_name"][$i]);
                             $org_address = strtoupper($_POST["org_address"][$i]);
-                            $no_of_hours = $_POST["no_of_hours"][$i];
+                            if($_POST["no_of_hours"][$i] == ''){
+                              $no_of_hours = null;
+                            }else{
+                              $no_of_hours = $_POST["no_of_hours"][$i];
+                            }
                             $position_nature = strtoupper($_POST["position_nature"][$i]);
 
                             $in = DB::run("INSERT INTO org_involvement(employeeid, inclusivedate_from, inclusivedate_to, org_name, org_address, no_of_hours, position_nature) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $org_name, $org_address, $no_of_hours, $position_nature]);

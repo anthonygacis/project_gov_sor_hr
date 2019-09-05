@@ -106,10 +106,23 @@
                             $up_educlevel = $_POST["up_educlevel"][$i];
                             $up_schoolname = strtoupper($_POST["up_schoolname"][$i]);
                             $up_degree = strtoupper($_POST["up_degree"][$i]);
-                            $up_periodfrom = strtoupper($_POST["up_periodfrom"][$i]);
-                            $up_periodto = strtoupper($_POST["up_periodto"][$i]);
+                            if($_POST["up_periodfrom"][$i] == ''){
+                              $up_periodfrom = null;
+                            }else{
+                              $up_periodfrom = $_POST["up_periodfrom"][$i];
+                            }
+                            if($_POST["up_periodto"][$i] == ''){
+                              $up_periodto = null;
+                            }else{
+                              $up_periodto = $_POST["up_periodto"][$i];
+                            }
                             $up_unitsearned = strtoupper($_POST["up_unitsearned"][$i]);
-                            $up_yrgraduate = strtoupper($_POST["up_yrgraduate"][$i]);
+                            if($_POST["up_yrgraduate"][$i] == ''){
+                              $up_yrgraduate = null;
+                            }else{
+                              $up_yrgraduate = $_POST["up_yrgraduate"][$i];
+                            }
+
                             $up_honors = strtoupper($_POST["up_honors"][$i]);
 
                             $in = DB::run("UPDATE educbackground SET educlevel = ?, schoolname = ?, degree = ?, periodfrom = ?, periodto = ?, unitsearned = ?, yrgraduate = ?, honors = ? WHERE employeeid = ? AND itemno = ?", [$up_educlevel, $up_schoolname, $up_degree, $up_periodfrom, $up_periodto, $up_unitsearned, $up_yrgraduate, $up_honors, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
@@ -135,10 +148,23 @@
                             $educlevel = $_POST["educlevel"][$i];
                             $schoolname = strtoupper($_POST["schoolname"][$i]);
                             $degree = strtoupper($_POST["degree"][$i]);
-                            $periodfrom = strtoupper($_POST["periodfrom"][$i]);
-                            $periodto = strtoupper($_POST["periodto"][$i]);
+                            if($_POST["periodfrom"][$i] == ''){
+                              $periodfrom = null;
+                            }else{
+                              $periodfrom = $_POST["periodfrom"][$i];
+                            }
+                            if($_POST["periodto"][$i] == ''){
+                              $periodto = null;
+                            }else{
+                              $periodto = $_POST["periodto"][$i];
+                            }
                             $unitsearned = strtoupper($_POST["unitsearned"][$i]);
-                            $yrgraduate = strtoupper($_POST["yrgraduate"][$i]);
+                            if($_POST["yrgraduate"][$i] == ''){
+                              $yrgraduate = null;
+                            }else{
+                              $yrgraduate = $_POST["yrgraduate"][$i];
+                            }
+
                             $honors = strtoupper($_POST["honors"][$i]);
 
                             $in = DB::run("INSERT INTO educbackground(employeeid, educlevel, schoolname, degree, periodfrom, periodto, unitsearned, yrgraduate, honors) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $educlevel, $schoolname, $degree, $periodfrom, $periodto, $unitsearned, $yrgraduate, $honors]);
@@ -325,7 +351,7 @@
                             "<input type=\"text\" name=\"unitsearned[]\" placeholder=\"Highest Level/Units Earned\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" name=\"yrgraduate\" placeholder=\"Year Graduated\" class=\"form-control\">" +
+                            "<input type=\"number\" min=\"0\" name=\"yrgraduate[]\" placeholder=\"Year Graduated\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-3 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"honors[]\" placeholder=\"Scholarship / Academic Honors Received\" class=\"form-control\">" +

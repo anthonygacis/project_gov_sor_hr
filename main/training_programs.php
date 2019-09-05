@@ -103,11 +103,24 @@
                         if (isset($_POST["up_itemno"])) {
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
-                            $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
-                            $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            if($_POST["up_inclusivedate_from"][$i] == ''){
+                              $up_inclusivedate_from = null;
+                            }else{
+                              $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
+                            }
+                            if($_POST["up_inclusivedate_to"][$i] == ''){
+                              $up_inclusivedate_to = null;
+                            }else{
+                              $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
+                            }
                             $up_training_title = strtoupper($_POST["up_training_title"][$i]);
                             $up_type_of_ld = strtoupper($_POST["up_type_of_ld"][$i]);
-                            $up_no_of_hours = $_POST["up_no_of_hours"][$i];
+                            if($_POST["up_no_of_hours"][$i] == ''){
+                              $up_no_of_hours = null;
+                            }else{
+                              $up_no_of_hours = $_POST["up_no_of_hours"][$i];
+                            }
+
                             $up_sponsored_by = strtoupper($_POST["up_sponsored_by"][$i]);
 
                             $in = DB::run("UPDATE training_prog SET inclusivedate_from = ?, inclusivedate_to = ?, training_title = ?, type_of_ld = ?, no_of_hours = ?, sponsored_by = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_training_title, $up_type_of_ld, $up_no_of_hours, $up_sponsored_by, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
@@ -130,11 +143,23 @@
                         $add = false;
                         if (isset($_POST["training_title"])) {
                           for ($i=0; $i < count($_POST["training_title"]); $i++) {
-                            $inclusivedate_from = $_POST["inclusivedate_from"][$i];
-                            $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            if($_POST["inclusivedate_from"][$i] == ''){
+                              $inclusivedate_from = null;
+                            }else{
+                              $inclusivedate_from = $_POST["inclusivedate_from"][$i];
+                            }
+                            if($_POST["inclusivedate_to"][$i] == ''){
+                              $inclusivedate_to = null;
+                            }else{
+                              $inclusivedate_to = $_POST["inclusivedate_to"][$i];
+                            }
                             $training_title = strtoupper($_POST["training_title"][$i]);
                             $type_of_ld = strtoupper($_POST["type_of_ld"][$i]);
-                            $no_of_hours = $_POST["no_of_hours"][$i];
+                            if($_POST["no_of_hours"][$i] == ''){
+                              $no_of_hours = null;
+                            }else{
+                              $no_of_hours = $_POST["no_of_hours"][$i];
+                            }
                             $sponsored_by = strtoupper($_POST["sponsored_by"][$i]);
 
                             $in = DB::run("INSERT INTO training_prog(employeeid, training_title, inclusivedate_from, inclusivedate_to, no_of_hours, type_of_ld, sponsored_by) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $training_title, $inclusivedate_from, $inclusivedate_to, $no_of_hours, $type_of_ld, $sponsored_by]);
@@ -306,7 +331,7 @@
                           "<div class=\"col-md-8 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"sponsored_by[]\" placeholder=\"Conducted / Sponsored by (Write in full)\" class=\"form-control\">" +
                           "</div>" +
-                          "<div class=\"col-md-4 col-sm-12 col-xs-12 form-group\">" +
+                          "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<button type=\"button\" class=\"btn btn-danger\" onclick=\"removeRow('.irow" + counter + "')\"><span class=\"fa fa-close\"></span></button>" +
                           "</div>" +
                         "</div>";

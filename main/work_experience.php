@@ -104,17 +104,17 @@
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
                             $up_inclusivedate_from = $_POST["up_inclusivedate_from"][$i];
-                            if(isset($_POST["up_is_present"][$i])){
-                              $up_inclusivedate_to = null;
-                              $up_is_present = 1;
-                            }else{
+                            if($_POST["up_inclusivedate_to"][$i] != ''){
                               $up_inclusivedate_to = $_POST["up_inclusivedate_to"][$i];
                               $up_is_present = 0;
+                            }else{
+                              $up_inclusivedate_to = null;
+                              $up_is_present = 1;
                             }
 
                             $up_position_title = strtoupper($_POST["up_position_title"][$i]);
                             $up_agency_name = strtoupper($_POST["up_agency_name"][$i]);
-                            $up_monthly_salary = $_POST["up_monthly_salary"][$i];
+                            $up_monthly_salary = strtoupper($_POST["up_monthly_salary"][$i]);
                             $up_salary_grade = strtoupper($_POST["up_salary_grade"][$i]);
                             $up_status_of_appointment = strtoupper($_POST["up_status_of_appointment"][$i]);
                             $up_is_gov_service = $_POST["up_is_gov_service"][$i];
@@ -140,7 +140,7 @@
                         if (isset($_POST["position_title"])) {
                           for ($i=0; $i < count($_POST["position_title"]); $i++) {
                             $inclusivedate_from = $_POST["inclusivedate_from"][$i];
-                            if(isset($_POST["is_present"][$i])){
+                            if($_POST["inclusivedate_to"][$i] == ''){
                               $inclusivedate_to = null;
                               $is_present = 1;
                             }else{
@@ -149,7 +149,7 @@
                             }
                             $position_title = strtoupper($_POST["position_title"][$i]);
                             $agency_name = strtoupper($_POST["agency_name"][$i]);
-                            $monthly_salary = $_POST["monthly_salary"][$i];
+                            $monthly_salary = strtoupper($_POST["monthly_salary"][$i]);
                             $salary_grade = strtoupper($_POST["salary_grade"][$i]);
                             $status_of_appointment = strtoupper($_POST["status_of_appointment"][$i]);
                             $is_gov_service = $_POST["is_gov_service"][$i];
@@ -214,7 +214,7 @@
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <label>To:</label>
-                            <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>" <?php echo ($is_present == 1) ? 'disabled' : '' ?> id="iTo<?php echo $counter; ?>" required>
+                            <input type="date" name="up_inclusivedate_to[]" data-toggle="tooltip" data-placement="top" title="Inclusive Dates (To)" class="form-control" value="<?php echo $row["inclusivedate_to"]; ?>" <?php echo ($is_present == 1) ? 'readonly' : '' ?> id="iTo<?php echo $counter; ?>" required>
                           </div>
                           <div class="col-md-1 col-sm-12 col-xs-12 form-group">
                             <label>Present Job?</label> <br/>
@@ -229,7 +229,7 @@
                             <input type="text" name="up_agency_name[]" data-toggle="tooltip" data-placement="top" title="Department/Agency/Office/Company (Write in full/Do not abbreviate)" class="form-control" value="<?php echo $row["agency_name"]; ?>">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <input type="number" min="0" step="0.01" name="up_monthly_salary[]" data-toggle="tooltip" data-placement="top" title="Monthly Salary" class="form-control" value="<?php echo $row["monthly_salary"]; ?>">
+                            <input type="text" name="up_monthly_salary[]" data-toggle="tooltip" data-placement="top" title="Monthly Salary" class="form-control" value="<?php echo $row["monthly_salary"]; ?>">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             <input type="text" name="up_salary_grade[]" data-toggle="tooltip" data-placement="top" title="Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)" class="form-control" value="<?php echo $row["salary_grade"]; ?>">
@@ -339,7 +339,7 @@
                             "<input type=\"text\" name=\"agency_name[]\" placeholder=\"Department/Agency/Office/Company (Write in full/Do not abbreviate)\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
-                            "<input type=\"number\" min=\"0\" step=\"0.01\" name=\"monthly_salary[]\" placeholder=\"Monthly Salary\" class=\"form-control\">" +
+                            "<input type=\"text\" name=\"monthly_salary[]\" placeholder=\"Monthly Salary\" class=\"form-control\">" +
                           "</div>" +
                           "<div class=\"col-md-2 col-sm-12 col-xs-12 form-group\">" +
                             "<input type=\"text\" name=\"salary_grade[]\" placeholder=\"Salary/Job/Pay Grade (if applicable) & step (format '00-0')/increment (To)\" class=\"form-control\">" +
@@ -373,9 +373,9 @@
           $(this).prop('checked', false)
         }else{
           if($(this).prop('checked')){
-            $('#iTo' + $(this).attr('data-checkval')).prop('disabled', true);
+            $('#iTo' + $(this).attr('data-checkval')).prop('readonly', true);
           }else{
-            $('#iTo' + $(this).attr('data-checkval')).prop('disabled', false);
+            $('#iTo' + $(this).attr('data-checkval')).prop('readonly', false);
           }
         }
       });

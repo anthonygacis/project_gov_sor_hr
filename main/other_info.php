@@ -258,15 +258,15 @@
                         &nbsp;
                         <hr/>
                         <div id="item_container_hobbies" class="col-md-4 col-sm-12 col-xs-12">
-                          <input type="button" id="add_hobbies" value="Add Hobbies" class="btn btn-info btn-sm">
+                          <input type="button" id="add_hobbies" name="up_skills[]" value="Add Hobbies" class="btn btn-info btn-sm">
                           <br/>
                         </div>
                         <div id="item_container_recognition" class="col-md-4 col-sm-12 col-xs-12">
-                          <input type="button" id="add_recognition" value="Add Recognition" class="btn btn-info btn-sm">
+                          <input type="button" id="add_recognition" name="up_acad_recognition[]" value="Add Recognition" class="btn btn-info btn-sm">
                           <br/>
                         </div>
                         <div id="item_container_membership" class="col-md-4 col-sm-12 col-xs-12">
-                          <input type="button" id="add_membership" value="Add Membership" class="btn btn-info btn-sm">
+                          <input type="button" id="add_membership" name="up_mem_assoc_org[]" value="Add Membership" class="btn btn-info btn-sm">
                           <br/>
                         </div>
                         <!-- Commands -->

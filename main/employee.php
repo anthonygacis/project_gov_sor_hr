@@ -64,6 +64,8 @@
       $lastId = DB::getLastInsertedID();
       // create an entry for table back_related
       $iin = DB::run("INSERT INTO back_related(employeeid) VALUES(?)", [$lastId]);
+      // create an entry for table other_info
+      $ioi = DB::run("INSERT INTO other_info(employeeid) VALUES(?)", [$lastId]);
 
       // proceed to personal info
       header("Location: personal_info.php?employeeid=" . $lastId);

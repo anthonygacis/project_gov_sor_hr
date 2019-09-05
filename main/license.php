@@ -104,11 +104,11 @@
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
                             $up_licensename = strtoupper($_POST["up_licensename"][$i]);
-                            $up_rating = $_POST["up_rating"][$i];
-                            $up_examdate = $_POST["up_examdate"][$i];
+                            $up_rating = ($_POST["up_rating"][$i] == '') ? null : $_POST["up_rating"][$i];
+                            $up_examdate = ($_POST["up_examdate"][$i] == '') ? null : $_POST["up_examdate"][$i];
                             $up_place = strtoupper($_POST["up_place"][$i]);
                             $up_licenseno = $_POST["up_licenseno"][$i];
-                            $up_validdate = $_POST["up_validdate"][$i];
+                            $up_validdate = ($_POST["up_validdate"][$i] == '') ? null : $_POST["up_validdate"][$i];
 
                             $in = DB::run("UPDATE license SET licensename = ?, rating = ?, examdate = ?, place = ?, licenseno = ?, validdate = ? WHERE employeeid = ? AND itemno = ?", [$up_licensename, $up_rating, $up_examdate, $up_place, $up_licenseno, $up_validdate, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
@@ -123,11 +123,11 @@
                         if (isset($_POST["licensename"])) {
                           for ($i=0; $i < count($_POST["licensename"]); $i++) {
                             $licensename = strtoupper($_POST["licensename"][$i]);
-                            $rating = $_POST["rating"][$i];
-                            $examdate = $_POST["examdate"][$i];
+                            $rating = ($_POST["rating"][$i] == '') ? null : $_POST["rating"][$i];
+                            $examdate = ($_POST["examdate"][$i] == '') ? null : $_POST["examdate"][$i];
                             $place = strtoupper($_POST["place"][$i]);
                             $licenseno = $_POST["licenseno"][$i];
-                            $validdate = $_POST["validdate"][$i];
+                            $validdate = ($_POST["validdate"][$i] == '') ? null : $_POST["validdate"][$i];
 
                             $in = DB::run("INSERT INTO license(employeeid, licensename, rating, examdate, place, licenseno, validdate) VALUES(?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $licensename, $rating, $examdate, $place, $licenseno, $validdate]);
 

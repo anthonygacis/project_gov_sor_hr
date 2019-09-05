@@ -102,7 +102,7 @@
                         $sp_occupation = strtoupper($_POST["sp_occupation"]);
                         $sp_employer = strtoupper($_POST["sp_employer"]);
                         $sp_empraddr = strtoupper($_POST["sp_employer"]);
-                        $sp_emprtelno = strtoupper($_POST["sp_employer"]);
+                        $sp_emprtelno = strtoupper($_POST["sp_emprtelno"]);
                         $fatherlname = strtoupper($_POST["fatherlname"]);
                         $fatherfname = strtoupper($_POST["fatherlname"]);
                         $fathermname = strtoupper($_POST["fathermname"]);
@@ -138,7 +138,7 @@
                           }
                         }
 
-                        if($up->rowCount() > 0){
+                        if($up->rowCount() > 0 || $in->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
                       <strong>Success!</strong> Data has been updated
@@ -199,6 +199,8 @@
                           <label>Spouse's Middle Name:</label>
                           <input type="text" name="spousemname" placeholder="Enter text ..." class="form-control" value="<?php echo $spousemname; ?>">
                         </div>
+                        <div class="clearfix"></div>
+                        <hr/>
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <label>Occupation:</label>
                           <input type="text" name="sp_occupation" placeholder="Enter text ..." class="form-control" value="<?php echo $sp_occupation; ?>">
@@ -215,6 +217,8 @@
                           <label>Telephone No:</label>
                           <input type="text" name="sp_emprtelno" placeholder="Enter text ..." class="form-control" value="<?php echo $sp_emprtelno; ?>">
                         </div>
+                        <div class="clearfix"></div>
+                        <hr/>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Father's Surname:</label>
                           <input type="text" name="fatherlname" placeholder="Enter text ..." class="form-control" value="<?php echo $fatherlname; ?>">
@@ -227,6 +231,8 @@
                           <label>Father's Middle Name:</label>
                           <input type="text" name="fathermname" placeholder="Enter text ..." class="form-control" value="<?php echo $fathermname; ?>">
                         </div>
+                        <div class="clearfix"></div>
+                        <hr/>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                           <label>Mother's Last Name:</label>
                           <input type="text" name="motherlname" placeholder="Enter text ..." class="form-control" value="<?php echo $motherlname; ?>">
@@ -239,7 +245,9 @@
                           <label>Mother's Middle Name:</label>
                           <input type="text" name="mothermname" placeholder="Enter text ..." class="form-control" value="<?php echo $mothermname; ?>">
                         </div>
-                          <label>Name of Children:</label>
+                        <div class="clearfix"></div>
+                        <hr/>
+                        <label>Name of Children:</label>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group" id="children_container">
                           <?php
                             // retrieve children
