@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -122,7 +122,7 @@
                             }
                             $up_position_nature = strtoupper($_POST["up_position_nature"][$i]);
 
-                            $in = DB::run("UPDATE org_involvement SET inclusivedate_from = ?, inclusivedate_to = ?, org_name = ?, org_address = ?, no_of_hours = ?, position_nature = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_org_name, $up_org_address, $up_no_of_hours, $up_position_nature, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE org_involvement SET inclusivedate_from = ?, inclusivedate_to = ?, org_name = ?, org_address = ?, no_of_hours = ?, position_nature = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_org_name, $up_org_address, $up_no_of_hours, $up_position_nature, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -161,7 +161,7 @@
                             }
                             $position_nature = strtoupper($_POST["position_nature"][$i]);
 
-                            $in = DB::run("INSERT INTO org_involvement(employeeid, inclusivedate_from, inclusivedate_to, org_name, org_address, no_of_hours, position_nature) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $org_name, $org_address, $no_of_hours, $position_nature]);
+                            $in = DB::run("INSERT INTO org_involvement(employeeid, inclusivedate_from, inclusivedate_to, org_name, org_address, no_of_hours, position_nature) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $org_name, $org_address, $no_of_hours, $position_nature]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -183,7 +183,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM org_involvement WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM org_involvement WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -199,7 +199,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM org_involvement WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM org_involvement WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $inclusivedate_from = $row["inclusivedate_from"];
@@ -235,7 +235,7 @@
                             <input type="text" name="up_position_nature[]" data-toggle="tooltip" data-placement="top" title="Position / Nature of Work" class="form-control" value="<?php echo $row["position_nature"]; ?>">
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <a href="org_involvement.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
+                            <a href="org_involvement.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php

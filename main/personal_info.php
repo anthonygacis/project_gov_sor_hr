@@ -1,10 +1,10 @@
 <?php
   include "connection/connection.php";
   session_start();
-
   if(!isset($_SESSION["username"])){
     header("Location: login.php");
   }
+
 
   if(isset($_GET["employeeid"])){
     if($_GET["employeeid"] != ""){
@@ -17,6 +17,7 @@
       }
     }
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -100,19 +101,23 @@
                         $fname = strtoupper($_POST["fname"]);
                         $midname = strtoupper($_POST["mname"]);
                         $midinit = strtoupper(substr($_POST["mname"], 0, 1) . ".");
-                        $birthdate = $_POST["birthdate"];
+                        if($_POST["birthdate"] == ''){
+                          $birthdate = null;
+                        }else{
+                          $birthdate = $_POST["birthdate"];
+                        }
                         $birthplace = strtoupper($_POST["birthplace"]);
                         $gender = $_POST["gender"];
                         $civilstatus = $_POST["civilstatus"];
-                        $height = $_POST["height"];
-                        $weight = $_POST["weight"];
+                        $height = ($_POST["height"] == '' ? null : $_POST["height"]);
+                        $weight = ($_POST["weight"] == '' ? null : $_POST["weight"]);
                         $bloodtype = strtoupper($_POST["bloodtype"]);
                         $gsisno = strtoupper($_POST["gsisno"]);
                         $pagibigno = $_POST["pagibigno"];
                         $philhealthno = $_POST["philhealthno"];
                         $sssno = $_POST["sssno"];
                         $tinno = $_POST["tinno"];
-                        $agencyemployeeno = $_POST["agencyemployeeno"];
+                        $agencyemployeeno = strtoupper($_POST["agencyemployeeno"]);
                         $citizenship = strtoupper($_POST["citizenship"]);
                         $residentialaddr1 = strtoupper($_POST["residentialaddr1"]);
                         $residentialaddr2 = strtoupper($_POST["residentialaddr2"]);
@@ -126,7 +131,7 @@
                         $mobileno = $_POST["mobileno"];
                         $emailaddr = $_POST["emailaddr"];
 
-                        $up  = DB::run("UPDATE employee SET lname = ?, fname = ?, midname = ?, midinit = ?, birthdate = ?, birthplace = ?, gender = ?, civilstatus = ?, height = ?, weight = ?, bloodtype = ?, gsisno = ?, pagibigno = ?, philhealthno = ?, sssno = ?, tinno = ?, agencyemployeeno = ?, citizenship = ?, residentialaddr1 = ?, residentialaddr2 = ?, residentialaddr3 = ?, reszipcode = ?, permanentaddr1 = ?, permanentaddr2 = ?, permanentaddr3 = ?, permzipcode = ?, telno = ?, mobileno = ?, emailaddr = ? WHERE employeeid = ?", [$lname, $fname, $midname, $midinit, $birthdate, $birthplace, $gender, $civilstatus, $height, $weight, $bloodtype, $gsisno, $pagibigno, $philhealthno, $sssno, $tinno, $agencyemployeeno, $citizenship, $residentialaddr1, $residentialaddr2, $residentialaddr3, $reszipcode, $permanentaddr1, $permanentaddr2, $permanentaddr3, $permzipcode, $telno, $mobileno, $emailaddr, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                        $up  = DB::run("UPDATE employee SET lname = ?, fname = ?, midname = ?, midinit = ?, birthdate = ?, birthplace = ?, gender = ?, civilstatus = ?, height = ?, weight = ?, bloodtype = ?, gsisno = ?, pagibigno = ?, philhealthno = ?, sssno = ?, tinno = ?, agencyemployeeno = ?, citizenship = ?, residentialaddr1 = ?, residentialaddr2 = ?, residentialaddr3 = ?, reszipcode = ?, permanentaddr1 = ?, permanentaddr2 = ?, permanentaddr3 = ?, permzipcode = ?, telno = ?, mobileno = ?, emailaddr = ? WHERE employeeid = ?", [$lname, $fname, $midname, $midinit, $birthdate, $birthplace, $gender, $civilstatus, $height, $weight, $bloodtype, $gsisno, $pagibigno, $philhealthno, $sssno, $tinno, $agencyemployeeno, $citizenship, $residentialaddr1, $residentialaddr2, $residentialaddr3, $reszipcode, $permanentaddr1, $permanentaddr2, $permanentaddr3, $permzipcode, $telno, $mobileno, $emailaddr, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
 
                         if($up->rowCount() > 0){
                     ?>
@@ -139,7 +144,7 @@
                     ?>
                     <?php
                       // retrieve employee personal info
-                      $ret = DB::run("SELECT * FROM employee WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                      $ret = DB::run("SELECT * FROM employee WHERE employeeid = ?", [(isset($employeeid) ? $employeeid : $_SESSION["employeeid"])]);
                       if($row = $ret->fetch()){
                         $lname = $row["lname"];
                         $fname = $row["fname"];

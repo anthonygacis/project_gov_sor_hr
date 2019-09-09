@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -110,7 +110,7 @@
                         $motherfname = strtoupper($_POST["motherfname"]);
                         $mothermname = strtoupper($_POST["mothermname"]);
 
-                        $up  = DB::run("UPDATE employee SET spouselname = ?, spousefname = ?, spousemname = ?, sp_occupation = ?, sp_employer = ?, sp_empraddr = ?, sp_emprtelno = ?, fatherlname = ?, fatherfname = ?, fathermname = ?, motherlname = ?, motherfname = ?, mothermname = ? WHERE employeeid = ?", [$spouselname, $spousefname, $spousemname, $sp_occupation, $sp_employer, $sp_empraddr, $sp_emprtelno, $fatherlname, $fatherfname, $fathermname, $motherlname, $motherfname, $mothermname, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                        $up  = DB::run("UPDATE employee SET spouselname = ?, spousefname = ?, spousemname = ?, sp_occupation = ?, sp_employer = ?, sp_empraddr = ?, sp_emprtelno = ?, fatherlname = ?, fatherfname = ?, fathermname = ?, motherlname = ?, motherfname = ?, mothermname = ? WHERE employeeid = ?", [$spouselname, $spousefname, $spousemname, $sp_occupation, $sp_employer, $sp_empraddr, $sp_emprtelno, $fatherlname, $fatherfname, $fathermname, $motherlname, $motherfname, $mothermname, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
 
                         // updating children
                         if (isset($_POST["update_children"])) {
@@ -119,7 +119,7 @@
                             $update_children = strtoupper($_POST["update_children"][$i]);
                             $update_children_birthdate = strtoupper($_POST["update_children_birthdate"][$i]);
 
-                            $in = DB::run("UPDATE empchildren SET childname = ?, birthdate = ? WHERE employeeid = ? AND itemno = ?", [$update_children, $update_children_birthdate, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $update_children_itemno]);
+                            $in = DB::run("UPDATE empchildren SET childname = ?, birthdate = ? WHERE employeeid = ? AND itemno = ?", [$update_children, $update_children_birthdate, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $update_children_itemno]);
 
                           }
                         }
@@ -133,7 +133,7 @@
                             $child_name = strtoupper($_POST["children"][$i]);
                             $child_birthdate = strtoupper($_POST["children_birthdate"][$i]);
 
-                            $in = DB::run("INSERT INTO empchildren(employeeid, childname, birthdate) VALUES(?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $child_name, $child_birthdate]);
+                            $in = DB::run("INSERT INTO empchildren(employeeid, childname, birthdate) VALUES(?,?,?)", [(isset($employeeid) ? $employeeid : $_SESSION["employeeid"]), $child_name, $child_birthdate]);
 
                           }
                         }
@@ -152,7 +152,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM empchildren WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM empchildren WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -168,7 +168,7 @@
 
                     <?php
                       // retrieve employee personal info
-                      $ret = DB::run("SELECT * FROM employee WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                      $ret = DB::run("SELECT * FROM employee WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                       if($row = $ret->fetch()){
                         $spouselname = $row["spouselname"];
                         $spousefname = $row["spousefname"];
@@ -251,7 +251,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group" id="children_container">
                           <?php
                             // retrieve children
-                            $child = DB::run("SELECT * FROM empchildren WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                            $child = DB::run("SELECT * FROM empchildren WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                             while($row = $child->fetch()){
                           ?>
                           <input type="text" name="update_children_itemno[]"  value="<?php echo $row["itemno"]; ?>" style="display: none;">
@@ -262,7 +262,7 @@
                             <input type="date" name="update_children_birthdate[]" placeholder="Child's Birthdate" class="form-control" value="<?php echo $row["birthdate"]; ?>">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <a href="family_background.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger"><span class="fa fa-times"></span> Delete</a>
+                            <a href="family_background.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger"><span class="fa fa-times"></span> Delete</a>
                           </div>
                           <?php
                             }

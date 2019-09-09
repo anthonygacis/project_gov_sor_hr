@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -110,7 +110,7 @@
                             $up_licenseno = $_POST["up_licenseno"][$i];
                             $up_validdate = ($_POST["up_validdate"][$i] == '') ? null : $_POST["up_validdate"][$i];
 
-                            $in = DB::run("UPDATE license SET licensename = ?, rating = ?, examdate = ?, place = ?, licenseno = ?, validdate = ? WHERE employeeid = ? AND itemno = ?", [$up_licensename, $up_rating, $up_examdate, $up_place, $up_licenseno, $up_validdate, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE license SET licensename = ?, rating = ?, examdate = ?, place = ?, licenseno = ?, validdate = ? WHERE employeeid = ? AND itemno = ?", [$up_licensename, $up_rating, $up_examdate, $up_place, $up_licenseno, $up_validdate, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -129,7 +129,7 @@
                             $licenseno = $_POST["licenseno"][$i];
                             $validdate = ($_POST["validdate"][$i] == '') ? null : $_POST["validdate"][$i];
 
-                            $in = DB::run("INSERT INTO license(employeeid, licensename, rating, examdate, place, licenseno, validdate) VALUES(?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $licensename, $rating, $examdate, $place, $licenseno, $validdate]);
+                            $in = DB::run("INSERT INTO license(employeeid, licensename, rating, examdate, place, licenseno, validdate) VALUES(?,?,?,?,?,?,?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $licensename, $rating, $examdate, $place, $licenseno, $validdate]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -151,7 +151,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM license WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM license WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -167,7 +167,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM license WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM license WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $licensename = $row["licensename"];
@@ -199,7 +199,7 @@
                             <input type="date" name="up_validdate[]" placeholder="Valid Date" class="form-control" value="<?php echo $validdate; ?>" data-toggle="tooltip" data-placement="top" title="Date of Validity">
                           </div>
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <a href="license.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
+                            <a href="license.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php

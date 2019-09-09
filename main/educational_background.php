@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -125,7 +125,7 @@
 
                             $up_honors = strtoupper($_POST["up_honors"][$i]);
 
-                            $in = DB::run("UPDATE educbackground SET educlevel = ?, schoolname = ?, degree = ?, periodfrom = ?, periodto = ?, unitsearned = ?, yrgraduate = ?, honors = ? WHERE employeeid = ? AND itemno = ?", [$up_educlevel, $up_schoolname, $up_degree, $up_periodfrom, $up_periodto, $up_unitsearned, $up_yrgraduate, $up_honors, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE educbackground SET educlevel = ?, schoolname = ?, degree = ?, periodfrom = ?, periodto = ?, unitsearned = ?, yrgraduate = ?, honors = ? WHERE employeeid = ? AND itemno = ?", [$up_educlevel, $up_schoolname, $up_degree, $up_periodfrom, $up_periodto, $up_unitsearned, $up_yrgraduate, $up_honors, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -167,7 +167,7 @@
 
                             $honors = strtoupper($_POST["honors"][$i]);
 
-                            $in = DB::run("INSERT INTO educbackground(employeeid, educlevel, schoolname, degree, periodfrom, periodto, unitsearned, yrgraduate, honors) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $educlevel, $schoolname, $degree, $periodfrom, $periodto, $unitsearned, $yrgraduate, $honors]);
+                            $in = DB::run("INSERT INTO educbackground(employeeid, educlevel, schoolname, degree, periodfrom, periodto, unitsearned, yrgraduate, honors) VALUES(?,?,?,?,?,?,?,?,?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $educlevel, $schoolname, $degree, $periodfrom, $periodto, $unitsearned, $yrgraduate, $honors]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -189,7 +189,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM educbackground WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM educbackground WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -205,7 +205,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM educbackground WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM educbackground WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $educlevel = $row["educlevel"];
@@ -252,7 +252,7 @@
                             <input type="text" name="up_honors[]" placeholder="Scholarship / Academic Honors Received" class="form-control" value="<?php echo $honors; ?>" data-toggle="tooltip" data-placement="top" title="Scholarship / Academic Honors Received">
                           </div>
                           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                            <a href="educational_background.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
+                            <a href="educational_background.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php

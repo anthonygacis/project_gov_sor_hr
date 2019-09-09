@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -123,7 +123,7 @@
 
                             $up_sponsored_by = strtoupper($_POST["up_sponsored_by"][$i]);
 
-                            $in = DB::run("UPDATE training_prog SET inclusivedate_from = ?, inclusivedate_to = ?, training_title = ?, type_of_ld = ?, no_of_hours = ?, sponsored_by = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_training_title, $up_type_of_ld, $up_no_of_hours, $up_sponsored_by, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE training_prog SET inclusivedate_from = ?, inclusivedate_to = ?, training_title = ?, type_of_ld = ?, no_of_hours = ?, sponsored_by = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_training_title, $up_type_of_ld, $up_no_of_hours, $up_sponsored_by, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -162,7 +162,7 @@
                             }
                             $sponsored_by = strtoupper($_POST["sponsored_by"][$i]);
 
-                            $in = DB::run("INSERT INTO training_prog(employeeid, training_title, inclusivedate_from, inclusivedate_to, no_of_hours, type_of_ld, sponsored_by) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $training_title, $inclusivedate_from, $inclusivedate_to, $no_of_hours, $type_of_ld, $sponsored_by]);
+                            $in = DB::run("INSERT INTO training_prog(employeeid, training_title, inclusivedate_from, inclusivedate_to, no_of_hours, type_of_ld, sponsored_by) VALUES(?, ?, ?, ?, ?, ?, ?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $training_title, $inclusivedate_from, $inclusivedate_to, $no_of_hours, $type_of_ld, $sponsored_by]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -184,7 +184,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM training_prog WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM training_prog WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -200,7 +200,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM training_prog WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM training_prog WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $inclusivedate_from = $row["inclusivedate_from"];
@@ -236,7 +236,7 @@
                             <input type="text" name="up_sponsored_by[]" data-toggle="tooltip" data-placement="top" title="Conducted / Sponsored by (Write in full)" class="form-control" value="<?php echo $row["sponsored_by"]; ?>">
                           </div>
                           <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            <a href="training_programs.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger"><span class="fa fa-times"></span> Delete</a>
+                            <a href="training_programs.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php

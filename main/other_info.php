@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -119,7 +119,7 @@
                               $up_mem_assoc_org = null;
                             }
 
-                            $in = DB::run("UPDATE other_info SET skills = ?, acad_recognition = ?, mem_assoc_org = ? WHERE employeeid = ? AND itemno = ?", [$up_skills, $up_acad_recognition, $up_mem_assoc_org, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE other_info SET skills = ?, acad_recognition = ?, mem_assoc_org = ? WHERE employeeid = ? AND itemno = ?", [$up_skills, $up_acad_recognition, $up_mem_assoc_org, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -143,7 +143,7 @@
                             $acad_recognition = strtoupper(implode($_POST["acad_recognition"]), ',');
                             $mem_assoc_org = strtoupper(implode($_POST["mem_assoc_org"]), ',');
 
-                            $in = DB::run("INSERT INTO training_prog(employeeid, skills, acad_recognition, mem_assoc_org) VALUES(?, ?, ?, ?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $skills, $acad_recognition, $mem_assoc_org]);
+                            $in = DB::run("INSERT INTO training_prog(employeeid, skills, acad_recognition, mem_assoc_org) VALUES(?, ?, ?, ?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $skills, $acad_recognition, $mem_assoc_org]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -165,7 +165,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM other_info WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM other_info WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -182,7 +182,7 @@
                       <div class="row">
                         <div class="row">
                           <?php
-                            $ret = DB::run("SELECT * FROM other_info WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                            $ret = DB::run("SELECT * FROM other_info WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
 
                             while($row = $ret->fetch()){
                               $skills = explode(',', $row["skills"]);

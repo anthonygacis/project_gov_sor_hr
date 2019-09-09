@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -119,7 +119,7 @@
                             $up_status_of_appointment = strtoupper($_POST["up_status_of_appointment"][$i]);
                             $up_is_gov_service = $_POST["up_is_gov_service"][$i];
 
-                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ?, is_present = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), $up_is_present, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                            $in = DB::run("UPDATE work_experience SET inclusivedate_from = ?, inclusivedate_to = ?, position_title = ?, agency_name = ?, monthly_salary = ?, salary_grade = ?, status_of_appointment = ?, is_gov_service = ?, is_present = ? WHERE employeeid = ? AND itemno = ?", [$up_inclusivedate_from, $up_inclusivedate_to, $up_position_title, $up_agency_name, $up_monthly_salary, $up_salary_grade, $up_status_of_appointment, ($up_is_gov_service == 'yes' ? 1 : 0), $up_is_present, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                             if($in->rowCount() > 0){
                               $mod = true;
@@ -154,7 +154,7 @@
                             $status_of_appointment = strtoupper($_POST["status_of_appointment"][$i]);
                             $is_gov_service = $_POST["is_gov_service"][$i];
 
-                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service, is_present) VALUES(?,?,?,?,?,?,?,?,?,?)", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0), $is_present]);
+                            $in = DB::run("INSERT INTO work_experience(employeeid, inclusivedate_from, inclusivedate_to, position_title, agency_name, monthly_salary, salary_grade, status_of_appointment, is_gov_service, is_present) VALUES(?,?,?,?,?,?,?,?,?,?)", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $inclusivedate_from, $inclusivedate_to, $position_title, $agency_name, $monthly_salary, $salary_grade, $status_of_appointment, ($is_gov_service == 'yes' ? 1 : 0), $is_present]);
 
                             if($in->rowCount() > 0){
                               $add = true;
@@ -176,7 +176,7 @@
                       if(isset($_GET["itemno"])){
                         if($_GET["itemno"] != ""){
                           // Delete operation
-                          $del = DB::run("DELETE FROM work_experience WHERE employeeid = ? AND itemno = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
+                          $del = DB::run("DELETE FROM work_experience WHERE employeeid = ? AND itemno = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $_GET["itemno"]]);
                           if($del->rowCount() > 0){
                     ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -192,7 +192,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM work_experience WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM work_experience WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
                           $counter = 1;
                           while($row = $ret->fetch()){
                             $inclusivedate_from = $row["inclusivedate_from"];
@@ -245,7 +245,7 @@
                             </select>
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                            <a href="work_experience.php?<?php echo 'employeeid=' . (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
+                            <a href="work_experience.php?<?php echo 'employeeid=' . (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]) . '&itemno=' . $row["itemno"]; ?>" class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Delete</a>
                           </div>
                         </div>
                         <?php

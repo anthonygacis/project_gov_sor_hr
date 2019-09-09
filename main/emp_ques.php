@@ -72,7 +72,7 @@
                 <h3>Update Information <?php echo (isset($fullname) ? "(" . $fullname . ")" : ""); ?></h3>
               </div>
               <?php
-                if(isset($_GET["employeeid"]) && $_SESSION["user_type"] == "admin"){
+                if(isset($_GET["employeeid"]) ){
               ?>
               <div class="title_right">
                 <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-right">
@@ -190,7 +190,7 @@
                           $i_40_c_yes_details = strtoupper($_POST["i_40_c_yes_details"]);
                           // ====
 
-                          $in = DB::run("UPDATE back_related SET i_34_a = ?, i_34_b = ?, i_34_yes_details = ?, i_35_a = ?, i_35_a_yes_details = ?, i_35_b = ?, i_35_b_date_filed = ?, i_35_b_status_cases = ?, i_36 = ?, i_36_yes_details = ?, i_37 = ?, i_37_yes_details = ?, i_38_a = ?, i_38_a_yes_details = ?, i_38_b = ?, i_38_b_yes_details = ?, i_39 = ?, i_39_yes_details = ?, i_40_a = ?, i_40_a_yes_details = ?, i_40_b = ?, i_40_b_yes_details = ?, i_40_c = ?, i_40_c_yes_details = ? WHERE employeeid = ? AND itemno = ?", [$i_34_a, $i_34_b, $i_34_yes_details, $i_35_a, $i_35_a_yes_details, $i_35_b, $i_35_b_date_filed, $i_35_b_status_cases, $i_36, $i_36_yes_details, $i_37, $i_37_yes_details, $i_38_a, $i_38_a_yes_details, $i_38_b, $i_38_b_yes_details, $i_39, $i_39_yes_details, $i_40_a, $i_40_a_yes_details, $i_40_b, $i_40_b_yes_details, $i_40_c, $i_40_c_yes_details, (isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
+                          $in = DB::run("UPDATE back_related SET i_34_a = ?, i_34_b = ?, i_34_yes_details = ?, i_35_a = ?, i_35_a_yes_details = ?, i_35_b = ?, i_35_b_date_filed = ?, i_35_b_status_cases = ?, i_36 = ?, i_36_yes_details = ?, i_37 = ?, i_37_yes_details = ?, i_38_a = ?, i_38_a_yes_details = ?, i_38_b = ?, i_38_b_yes_details = ?, i_39 = ?, i_39_yes_details = ?, i_40_a = ?, i_40_a_yes_details = ?, i_40_b = ?, i_40_b_yes_details = ?, i_40_c = ?, i_40_c_yes_details = ? WHERE employeeid = ? AND itemno = ?", [$i_34_a, $i_34_b, $i_34_yes_details, $i_35_a, $i_35_a_yes_details, $i_35_b, $i_35_b_date_filed, $i_35_b_status_cases, $i_36, $i_36_yes_details, $i_37, $i_37_yes_details, $i_38_a, $i_38_a_yes_details, $i_38_b, $i_38_b_yes_details, $i_39, $i_39_yes_details, $i_40_a, $i_40_a_yes_details, $i_40_b, $i_40_b_yes_details, $i_40_c, $i_40_c_yes_details, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $up_itemno]);
 
                           if($in->rowCount() > 0){
                             $mod = true;
@@ -209,7 +209,7 @@
                     <form action="<?php echo basename($_SERVER['REQUEST_URI']); ?>" method="POST">
                       <div class="row">
                         <?php
-                          $ret = DB::run("SELECT * FROM back_related WHERE employeeid = ?", [(isset($employeeid) && $_SESSION["user_type"] == "admin" ? $employeeid : $_SESSION["employeeid"])]);
+                          $ret = DB::run("SELECT * FROM back_related WHERE employeeid = ?", [(isset($employeeid) ? $employeeid : $_SESSION["employeeid"])]);
                           $row = $ret->fetch();
                         ?>
                         <div class="row">
