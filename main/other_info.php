@@ -104,17 +104,17 @@
                           for ($i=0; $i < count($_POST["up_itemno"]); $i++) {
                             $up_itemno = $_POST["up_itemno"][$i];
                             if(isset($_POST["up_skills"])){
-                              $up_skills = strtoupper(implode($_POST["up_skills"], ','));
+                              $up_skills = strtoupper(implode($_POST["up_skills"], '###'));
                             }else{
                               $up_skills = null;
                             }
                             if(isset($_POST["up_acad_recognition"])){
-                              $up_acad_recognition = strtoupper(implode($_POST["up_acad_recognition"], ','));
+                              $up_acad_recognition = strtoupper(implode($_POST["up_acad_recognition"], '###'));
                             }else{
                               $up_acad_recognition = null;
                             }
                             if(isset($_POST["up_mem_assoc_org"])){
-                              $up_mem_assoc_org = strtoupper(implode($_POST["up_mem_assoc_org"], ','));
+                              $up_mem_assoc_org = strtoupper(implode($_POST["up_mem_assoc_org"], '###'));
                             }else{
                               $up_mem_assoc_org = null;
                             }
@@ -185,9 +185,9 @@
                             $ret = DB::run("SELECT * FROM other_info WHERE employeeid = ?", [(isset($employeeid)  ? $employeeid : $_SESSION["employeeid"])]);
 
                             while($row = $ret->fetch()){
-                              $skills = explode(',', $row["skills"]);
-                              $acad_recognition = explode(',', $row["acad_recognition"]);
-                              $mem_assoc_org = explode(',', $row["mem_assoc_org"]);
+                              $skills = explode('###', $row["skills"]);
+                              $acad_recognition = explode('###', $row["acad_recognition"]);
+                              $mem_assoc_org = explode('###', $row["mem_assoc_org"]);
                           ?>
                           <input type="text" name="up_itemno[]" value="<?php echo $row["itemno"]; ?>" style="display: none;">
                           <!-- skills -->

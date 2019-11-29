@@ -104,7 +104,7 @@
                         $sp_empraddr = strtoupper($_POST["sp_employer"]);
                         $sp_emprtelno = strtoupper($_POST["sp_emprtelno"]);
                         $fatherlname = strtoupper($_POST["fatherlname"]);
-                        $fatherfname = strtoupper($_POST["fatherlname"]);
+                        $fatherfname = strtoupper($_POST["fatherfname"]);
                         $fathermname = strtoupper($_POST["fathermname"]);
                         $motherlname = strtoupper($_POST["motherlname"]);
                         $motherfname = strtoupper($_POST["motherfname"]);
@@ -117,7 +117,12 @@
                           for ($i=0; $i < count($_POST["update_children"]); $i++) {
                             $update_children_itemno = $_POST["update_children_itemno"][$i];
                             $update_children = strtoupper($_POST["update_children"][$i]);
-                            $update_children_birthdate = strtoupper($_POST["update_children_birthdate"][$i]);
+                            if($_POST["update_children_birthdate"][$i] == ''){
+                              $update_children_birthdate = null;
+                            }else{
+                              $update_children_birthdate = $_POST["update_children_birthdate"][$i];
+                            }
+
 
                             $in = DB::run("UPDATE empchildren SET childname = ?, birthdate = ? WHERE employeeid = ? AND itemno = ?", [$update_children, $update_children_birthdate, (isset($employeeid)  ? $employeeid : $_SESSION["employeeid"]), $update_children_itemno]);
 
@@ -131,7 +136,12 @@
                               continue;
                             }
                             $child_name = strtoupper($_POST["children"][$i]);
-                            $child_birthdate = strtoupper($_POST["children_birthdate"][$i]);
+                            if($_POST["children_birthdate"][$i] == ''){
+                              $child_birthdate = null;
+                            }else{
+                              $child_birthdate = $_POST["children_birthdate"][$i];
+                            }
+
 
                             $in = DB::run("INSERT INTO empchildren(employeeid, childname, birthdate) VALUES(?,?,?)", [(isset($employeeid) ? $employeeid : $_SESSION["employeeid"]), $child_name, $child_birthdate]);
 
